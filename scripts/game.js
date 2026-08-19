@@ -5,12 +5,7 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
-
-
-    console.log("my character is ", world.character);
-
 }
-
 
 window.addEventListener("keydown", (event) => {
     if (event.keyCode == 32) {
