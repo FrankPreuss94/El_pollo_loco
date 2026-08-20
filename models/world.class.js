@@ -1,13 +1,16 @@
-class World {
+import { level1 } from "../levels/level1.js";
+import { Character } from "./character.class.js";
 
-    character = new Character();
+export class World {
+
+    character = new Character;
     level = level1;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
 
-    constructor(canvas) {
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;

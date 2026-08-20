@@ -1,6 +1,9 @@
+import { Keyboard } from "../models/keyboard.class.js";
+import { World } from "../models/world.class.js";
+
 let canvas;
 let world;
-let keyboard = new Keyboard();
+let keyboard = new Keyboard;
 
 function init() {
     canvas = document.getElementById("canvas");
@@ -42,3 +45,9 @@ window.addEventListener("keyup", (event) => {
         keyboard.down = false;
     }
 })
+
+// init()
+
+// window.init = init;
+
+window.addEventListener('load', init)

@@ -1,4 +1,7 @@
-class Chicken extends MovableObject {
+import { ImageHub } from "./image-hub.class.js";
+import { MovableObject } from "./movable-object.class.js";
+
+export class Chicken extends MovableObject {
     y = 360;
     height = 57;
     width = 65;
