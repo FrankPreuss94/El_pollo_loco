@@ -12,6 +12,8 @@ export class Character extends MovableObject {
     constructor() {
         super().loadImage(ImageHub.charakter.idle[1]);
         this.loadImages(ImageHub.charakter.walk);
+        this.loadImages(ImageHub.charakter.jump);
+        this.applyGravity();
         this.animate();
     }
 
@@ -19,28 +21,35 @@ export class Character extends MovableObject {
 
         setInterval(() => {
             if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
+                this.moveRight();
                 this.otherDirection = false;
             }
+
             if (this.world.keyboard.left && this.x > 0) {
-                this.x -= this.speed;
+                this.moveLeft();
                 this.otherDirection = true;
             }
+
+            if (this.world.keyboard.space && !this.isAboveGround() || this.world.keyboard.up && !this.isAboveGround()) {
+                this.jump();
+            }
+
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
         setInterval(() => {
-            if (this.world.keyboard.right || this.world.keyboard.left) {
-                // walk animation
-                let i = this.currentImage % ImageHub.charakter.walk.length;
-                let path = ImageHub.charakter.walk[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
+            if (this.isAboveGround()) {
+                this.playAnimation(ImageHub.charakter.jump)
+            } else {
+                if (this.world.keyboard.right || this.world.keyboard.left) {
+                    // walk animation
+                    this.playAnimation(ImageHub.charakter.walk)
+                }
             }
         }, 50);
     }
 
     jump() {
-
+        this.speedY = 27.5;
     }
 }
