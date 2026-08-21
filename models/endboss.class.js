@@ -5,13 +5,22 @@ export class Endboss extends MovableObject {
 
     height = 400; // 1:1.165
     width = 345;
+    x = 300;
     y = 55;
+    showFrame = true; // nur für die Hitboxen später entfernen
+    offset = {
+        top: 100,
+        right: 50,
+        bottom: 20,
+        left: 25
+    };
+
 
     constructor() {
         super().loadImage(ImageHub.endboss.alert[0]);
         this.loadImages(ImageHub.endboss.alert);
-        this.x = 2500;
         this.animate();
+        this.getHitBox();
     }
 
     animate() {
