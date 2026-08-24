@@ -18,6 +18,7 @@ export class MovableObject extends DrawableObject {
     rH;
     hp = 100;
     lastHit = 0;
+    throwable = false;
 
     applyGravity() {
         setInterval(() => {
@@ -29,7 +30,11 @@ export class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        return this.y < 140;
+        if (this.throwable) { // throwable objects should alsways fall
+            return true;
+        } else {
+            return this.y < 140;
+        }
     }
 
     drawHitBox(ctx) { // nur zur Visualisierung
