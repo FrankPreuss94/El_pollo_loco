@@ -1,7 +1,7 @@
 import { DrawableObject } from "./drawable-objects.class.js";
 
 export class MovableObject extends DrawableObject {
-    speed = 0.15;
+    speed = 0.15; // muss hier nicht definiert werden, nur deklarieren
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;

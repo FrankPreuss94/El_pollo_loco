@@ -70,6 +70,17 @@ export class ImageHub {
         ]
     }
 
+    static smallChicken = {
+        walk: [
+            "assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
+            "assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
+            "assets/img/3_enemies_chicken/chicken_small/1_walk/3_w.png"
+        ],
+        dead: [
+            "assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png"
+        ]
+    }
+
     static endboss = {
         walk: [
             "assets/img/4_enemie_boss_chicken/1_walk/G1.png",

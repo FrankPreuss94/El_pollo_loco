@@ -5,6 +5,7 @@ export class Chicken extends MovableObject {
     y = 360;
     height = 57;
     width = 65;
+    hp = 5;
     showFrame = true; // nur für die Hitboxen später entfernen
     offset = {
         top: 6,
@@ -16,8 +17,9 @@ export class Chicken extends MovableObject {
     constructor() {
         super().loadImage(ImageHub.chicken.walk[0]);
         this.loadImages(ImageHub.chicken.walk);
+        this.loadImages(ImageHub.chicken.dead);
 
-        this.x = 200 + Math.random() * 500;
+        this.x = 200 + Math.random() * 4500;
         this.speed = 0.15 + Math.random() * 0.25;
 
         this.animate();
@@ -31,7 +33,12 @@ export class Chicken extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-            this.playAnimation(ImageHub.chicken.walk)
+            if (this.isDead()) {
+                this.playAnimation(ImageHub.chicken.dead)
+                this.speed = 0;
+            } else {
+                this.playAnimation(ImageHub.chicken.walk)
+            }
         }, 150);
     }
 

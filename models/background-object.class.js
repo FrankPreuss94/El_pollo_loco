@@ -7,6 +7,6 @@ export class BackgroundObject extends MovableObject {
     constructor(imagePath, x) {
         super().loadImage(imagePath);
         this.x = x;
-        this.y = 480 - this.height;
+        this.y = 480 - this.height; // ändern = 0;
     }
 }

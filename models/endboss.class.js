@@ -5,7 +5,7 @@ export class Endboss extends MovableObject {
 
     height = 400; // 1:1.165
     width = 345;
-    x = 300;
+    x = 5300;
     y = 55;
     showFrame = true; // nur für die Hitboxen später entfernen
     offset = {

@@ -32,9 +32,10 @@ export class World {
 
     run() {
         setInterval(() => {
+            this.beatChicken();
             this.checkCollisions();
             this.checkThrownObjects();
-        }, 200);
+        }, 100);
     }
 
     checkThrownObjects() {
@@ -46,9 +47,17 @@ export class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead()) {
                 this.character.hit();
                 this.healthBar.setPercentage(this.character.hp);
+            }
+        });
+    }
+
+    beatChicken() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
+                enemy.hit();
             }
         });
     }
@@ -58,6 +67,7 @@ export class World {
 
         this.ctx.translate(this.camera_x, 0);
         this.addObjectToMap(this.level.backgroundOnjects);
+        this.addObjectToMap(this.level.clouds);
 
         this.ctx.translate(-this.camera_x, 0); // back
         // ------ space for fixed objects ------
@@ -67,7 +77,6 @@ export class World {
         this.ctx.translate(this.camera_x, 0); // forwards
 
         this.addToMap(this.character);
-        this.addObjectToMap(this.level.clouds);
         this.addObjectToMap(this.level.enemies);
         this.addObjectToMap(this.throwableObjects);
 
