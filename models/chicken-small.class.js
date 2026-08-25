@@ -11,8 +11,7 @@ export class SmallChicken extends Chicken {
         this.loadImages(ImageHub.smallChicken.walk);
         this.loadImages(ImageHub.smallChicken.dead);
 
-        this.x = 200 + Math.random() * 4500;
-        this.speed = 0.15 + Math.random() * 0.25;
+        this.speed = 0.15 + Math.random() * 0.25; // speed anpassen?? 
 
         this.animate();
         this.getHitBox();

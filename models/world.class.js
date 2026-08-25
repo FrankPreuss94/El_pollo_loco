@@ -66,7 +66,7 @@ export class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
-        this.addObjectToMap(this.level.backgroundOnjects);
+        this.addObjectToMap(this.level.backgroundObjects);
         this.addObjectToMap(this.level.clouds);
 
         this.ctx.translate(-this.camera_x, 0); // back
@@ -78,6 +78,7 @@ export class World {
 
         this.addToMap(this.character);
         this.addObjectToMap(this.level.enemies);
+        this.addObjectToMap(this.level.collectableObjects);
         this.addObjectToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);
@@ -98,7 +99,7 @@ export class World {
         }
 
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+        // mo.drawFrame(this.ctx); // zur Visualisierung > später entfernen
         if (mo.drawHitBox) {
             mo.drawHitBox(this.ctx);
         }

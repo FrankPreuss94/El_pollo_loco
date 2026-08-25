@@ -24,7 +24,7 @@ export class DrawableObject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-    drawFrame(ctx) { // nur zur Visualisierung
+    drawFrame(ctx) { // nur zur Visualisierung > später entfernen
         if (this.showFrame) {
             ctx.beginPath();
             ctx.lineWidth = "3";
