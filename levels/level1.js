@@ -47,6 +47,7 @@ export const level1 = new Level(
         new BackgroundObject("assets/img/5_background/layers/3_third_layer/1.png", 0, 80),
         new BackgroundObject("assets/img/5_background/layers/2_second_layer/1.png", 0, 80),
         new BackgroundObject("assets/img/5_background/layers/1_first_layer/1.png", 0, 80),
+
         new BackgroundObject("assets/img/5_background/layers/air.png", 720, 80),
         new BackgroundObject("assets/img/5_background/layers/3_third_layer/2.png", 720, 80),
         new BackgroundObject("assets/img/5_background/layers/2_second_layer/2.png", 720, 80),
@@ -56,6 +57,7 @@ export const level1 = new Level(
         new BackgroundObject("assets/img/5_background/layers/3_third_layer/1.png", 720 * 2, 80),
         new BackgroundObject("assets/img/5_background/layers/2_second_layer/1.png", 720 * 2, 80),
         new BackgroundObject("assets/img/5_background/layers/1_first_layer/1.png", 720 * 2, 80),
+
         new BackgroundObject("assets/img/5_background/layers/air.png", 720 * 3, 80),
         new BackgroundObject("assets/img/5_background/layers/3_third_layer/2.png", 720 * 3, 80),
         new BackgroundObject("assets/img/5_background/layers/2_second_layer/2.png", 720 * 3, 80),
@@ -65,6 +67,7 @@ export const level1 = new Level(
         new BackgroundObject("assets/img/5_background/layers/3_third_layer/1.png", 720 * 4, 80),
         new BackgroundObject("assets/img/5_background/layers/2_second_layer/1.png", 720 * 4, 80),
         new BackgroundObject("assets/img/5_background/layers/1_first_layer/1.png", 720 * 4, 80),
+
         new BackgroundObject("assets/img/5_background/layers/air.png", 720 * 5, 80),
         new BackgroundObject("assets/img/5_background/layers/3_third_layer/2.png", 720 * 5, 80),
         new BackgroundObject("assets/img/5_background/layers/2_second_layer/2.png", 720 * 5, 80),
@@ -74,21 +77,33 @@ export const level1 = new Level(
         new BackgroundObject("assets/img/5_background/layers/3_third_layer/1.png", 720 * 6, 80),
         new BackgroundObject("assets/img/5_background/layers/2_second_layer/1.png", 720 * 6, 80),
         new BackgroundObject("assets/img/5_background/layers/1_first_layer/1.png", 720 * 6, 80),
+
         new BackgroundObject("assets/img/5_background/layers/air.png", 720 * 7, 80),
         new BackgroundObject("assets/img/5_background/layers/3_third_layer/2.png", 720 * 7, 80),
         new BackgroundObject("assets/img/5_background/layers/2_second_layer/2.png", 720 * 7, 80),
         new BackgroundObject("assets/img/5_background/layers/1_first_layer/2.png", 720 * 7, 80)
     ],
     [
-        new CollectableObject(400, 150),
-        new CollectableObject(500, 150),
-        new CollectableObject(800, 50),
-        new CollectableObject(1000, 250),
-        new CollectableObject(1200, 150),
-        new CollectableObject(1400, 150),
-        new CollectableObject(2000, 150),
-        new CollectableObject(2100, 50),
-        new CollectableObject(3000, 250),
-        new CollectableObject(4000, 150),
+        new CollectableObject(400, 150, "coin"),
+        new CollectableObject(500, 150, "coin"),
+        new CollectableObject(800, 50, "coin"),
+        new CollectableObject(1000, 250, "coin"),
+        new CollectableObject(1200, 150, "coin"),
+        new CollectableObject(1400, 150, "coin"),
+        new CollectableObject(2000, 150, "coin"),
+        new CollectableObject(2100, 50, "coin"),
+        new CollectableObject(3000, 250, "coin"),
+        new CollectableObject(4000, 150, "coin"),
+
+        new CollectableObject(400, 350, "bottle"),
+        new CollectableObject(500, 350, "bottle"),
+        new CollectableObject(600, 350, "bottle"),
+        new CollectableObject(700, 350, "bottle"),
+        new CollectableObject(800, 350, "bottle"),
+        new CollectableObject(900, 350, "bottle"),
+        new CollectableObject(1000, 350, "bottle"),
+        new CollectableObject(1100, 350, "bottle"),
+        new CollectableObject(1200, 350, "bottle"),
+        new CollectableObject(1300, 350, "bottle"),
     ]
 );

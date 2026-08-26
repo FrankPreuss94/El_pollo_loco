@@ -13,7 +13,7 @@ export class World {
     keyboard;
     camera_x = 0;
     healthBar = new StatusBar(ImageHub.stausbars.health_blue, 0, 100, this.character.hpMax);
-    coinBar = new StatusBar(ImageHub.stausbars.coins_blue, 50, 0, this.character.coinsMax);
+    coinsBar = new StatusBar(ImageHub.stausbars.coins_blue, 50, 0, this.character.coinsMax);
     bottleBar = new StatusBar(ImageHub.stausbars.bottle_blue, 100, 0); //hier max bottles anpassen
     throwableObjects = [];
 
@@ -36,7 +36,7 @@ export class World {
             this.checkCollisions();
             this.checkThrownObjects();
             this.collectItems();
-        }, 100);
+        }, 30);
     }
 
     checkThrownObjects() {
@@ -56,13 +56,21 @@ export class World {
     }
 
     collectItems() {
-        this.level.collectableObjects.forEach((item) => {
+        this.level.collectableObject.forEach((item) => {
             if (this.character.isColliding(item)) {
-                this.character.coinsCounter();
-                this.coinBar.setPercentage(this.character.coins, this.character.coinsMax);
-                this.level.collectableObjects.splice(this.level.collectableObjects.indexOf(item), 1)
+                this.character.collectibleCounter(item);
+                this.updateCollectBar(item)
+                this.level.collectableObject.splice(this.level.collectableObject.indexOf(item), 1)
             }
         })
+    }
+
+    updateCollectBar(item) {     // ggf. wo anders platzieren
+        if (item.type == "coin") {
+            this.coinsBar.setPercentage(this.character.coins, this.character.coinsMax);
+        } else if (item.type == "bottle") {
+            this.bottleBar.setPercentage(this.character.bottle, this.character.bottleMax);
+        }
     }
 
     beatChicken() {
@@ -83,13 +91,13 @@ export class World {
         this.ctx.translate(-this.camera_x, 0); // back
         // ------ space for fixed objects ------
         this.addToMap(this.healthBar);
-        this.addToMap(this.coinBar);
+        this.addToMap(this.coinsBar);
         this.addToMap(this.bottleBar);
         this.ctx.translate(this.camera_x, 0); // forwards
 
         this.addToMap(this.character);
         this.addObjectToMap(this.level.enemies);
-        this.addObjectToMap(this.level.collectableObjects);
+        this.addObjectToMap(this.level.collectableObject);
         this.addObjectToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);

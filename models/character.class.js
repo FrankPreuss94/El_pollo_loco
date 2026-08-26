@@ -9,6 +9,8 @@ export class Character extends MovableObject {
     world;
     coins = 0;          // eventuell in andere class verschieben
     coinsMax = 10;
+    bottle = 0;
+    bottleMax = 10;
     showFrame = true; // nur für die Hitboxen später entfernen
     offset = {
         top: 120,
@@ -65,11 +67,21 @@ export class Character extends MovableObject {
         this.speedY = 27.5;
     }
 
-    coinsCounter() { // eventuell in eine andere class verschieben
-        this.coins += 1;
-        if (this.coins > 10) {  // für den max. Wert der Coins
-            this.coins = 10;
+    collectibleCounter(item) { // eventuell in eine andere class verschieben
+        if (item.type == "coin") {
+            this.coins += 1;
+            console.log("coins " + this.coins);
+            if (this.coins > 10) {  // für den max. Wert der Coins
+                this.coins = 10;
+            }
+        } else if (item.type == "bottle") {
+            this.bottle += 1;
+            console.log("bottle " + this.bottle);
+            if (this.bottle > 10) {  // für den max. Wert der Coins
+                this.bottle = 10;
+            }
         }
     }
+
 
 }

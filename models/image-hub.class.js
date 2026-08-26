@@ -147,7 +147,7 @@ export class ImageHub {
         ]
     }
 
-    static salsa = {
+    static bottle = {
         normal: [
             "assets/img/6_salsa_bottle/salsa_bottle.png"
         ],
