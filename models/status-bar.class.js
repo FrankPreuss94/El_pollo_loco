@@ -1,5 +1,4 @@
 import { DrawableObject } from "./drawable-objects.class.js";
-import { ImageHub } from "./image-hub.class.js";
 
 export class StatusBar extends DrawableObject {
 
@@ -7,7 +6,7 @@ export class StatusBar extends DrawableObject {
     ImageHubPath;
 
 
-    constructor(_imageHubPath, _y) {
+    constructor(_imageHubPath, _y, currentValue, maxValue) {
         super();
         this.loadImages(_imageHubPath);
         this.x = 30;
@@ -15,12 +14,12 @@ export class StatusBar extends DrawableObject {
         this.width = 200;
         this.height = 60;
         this.imageHubPath = _imageHubPath;
-        this.setPercentage(100);
+        this.setPercentage(currentValue, maxValue);
     }
 
-    setPercentage(percentage) {
-        this.percentage = percentage;
-        let path = this.imageHubPath[this.resolveImageIndex()]; //TODO an ImageHub anpassen
+    setPercentage(currentValue, maxValue) {
+        this.percentage = currentValue / maxValue * 100;
+        let path = this.imageHubPath[this.resolveImageIndex(maxValue)];
         this.img = this.imageCache[path];
     }
 
@@ -39,5 +38,4 @@ export class StatusBar extends DrawableObject {
             return 0;
         }
     }
-
 }

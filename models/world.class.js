@@ -12,9 +12,9 @@ export class World {
     ctx;
     keyboard;
     camera_x = 0;
-    healthBar = new StatusBar(ImageHub.stausbars.health_blue, 0);
-    coinBar = new StatusBar(ImageHub.stausbars.coins_blue, 50);
-    bottleBar = new StatusBar(ImageHub.stausbars.bottle_blue, 100);
+    healthBar = new StatusBar(ImageHub.stausbars.health_blue, 0, 100, this.character.hpMax);
+    coinBar = new StatusBar(ImageHub.stausbars.coins_blue, 50, 0, this.character.coinsMax);
+    bottleBar = new StatusBar(ImageHub.stausbars.bottle_blue, 100, 0); //hier max bottles anpassen
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -35,12 +35,13 @@ export class World {
             this.beatChicken();
             this.checkCollisions();
             this.checkThrownObjects();
+            this.collectItems();
         }, 100);
     }
 
     checkThrownObjects() {
         if (this.keyboard.d) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
+            const bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
             this.throwableObjects.push(bottle);
         }
     }
@@ -49,9 +50,19 @@ export class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead()) {
                 this.character.hit();
-                this.healthBar.setPercentage(this.character.hp);
+                this.healthBar.setPercentage(this.character.hp, this.character.hpMax);
             }
         });
+    }
+
+    collectItems() {
+        this.level.collectableObjects.forEach((item) => {
+            if (this.character.isColliding(item)) {
+                this.character.coinsCounter();
+                this.coinBar.setPercentage(this.character.coins, this.character.coinsMax);
+                this.level.collectableObjects.splice(this.level.collectableObjects.indexOf(item), 1)
+            }
+        })
     }
 
     beatChicken() {

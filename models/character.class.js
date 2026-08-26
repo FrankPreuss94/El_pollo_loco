@@ -7,6 +7,8 @@ export class Character extends MovableObject {
     width = 150;
     speed = 10;
     world;
+    coins = 0;          // eventuell in andere class verschieben
+    coinsMax = 10;
     showFrame = true; // nur für die Hitboxen später entfernen
     offset = {
         top: 120,
@@ -62,4 +64,12 @@ export class Character extends MovableObject {
     jump() {
         this.speedY = 27.5;
     }
+
+    coinsCounter() { // eventuell in eine andere class verschieben
+        this.coins += 1;
+        if (this.coins > 10) {  // für den max. Wert der Coins
+            this.coins = 10;
+        }
+    }
+
 }

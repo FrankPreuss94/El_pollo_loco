@@ -85,5 +85,10 @@ export const level1 = new Level(
         new CollectableObject(800, 50),
         new CollectableObject(1000, 250),
         new CollectableObject(1200, 150),
+        new CollectableObject(1400, 150),
+        new CollectableObject(2000, 150),
+        new CollectableObject(2100, 50),
+        new CollectableObject(3000, 250),
+        new CollectableObject(4000, 150),
     ]
 );
