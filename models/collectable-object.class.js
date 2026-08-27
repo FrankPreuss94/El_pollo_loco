@@ -22,7 +22,7 @@ export class CollectableObject extends DrawableObject {
         if (type == "coin") {
             this.path = ImageHub.coin.small;
         } else if (type == "bottle") {
-            this.path = ImageHub.bottle.ground[0];
+            this.path = ImageHub.bottle.ground[Math.floor(Math.random() * 2)];
         }
     }
 

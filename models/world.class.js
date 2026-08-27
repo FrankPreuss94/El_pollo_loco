@@ -36,14 +36,33 @@ export class World {
             this.checkCollisions();
             this.checkThrownObjects();
             this.collectItems();
+            this.checkBottleHit();
         }, 30);
     }
 
     checkThrownObjects() {
-        if (this.keyboard.d) {
+        if (this.keyboard.d && this.character.bottle > 0 && this.throwCooldown()) {
             const bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
             this.throwableObjects.push(bottle);
+            this.character.bottle -= 1;
+            this.bottleBar.setPercentage(this.character.bottle, this.character.bottleMax);
+            this.character.lastThrow = new Date().getTime();
         }
+    }
+
+    checkBottleHit() {
+        this.throwableObjects.forEach((bottle) => {
+            if (!bottle.isAboveGround()) {
+                bottle.bottleHit();
+            }
+        });
+    }
+
+
+    throwCooldown() {
+        let timePassed = new Date().getTime() - this.character.lastThrow;
+        timePassed = timePassed / 1000
+        return timePassed > 0.25;
     }
 
     checkCollisions() {

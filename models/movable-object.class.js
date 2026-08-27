@@ -21,8 +21,8 @@ export class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if (this.throwable) { // throwable objects should alsways fall
-            return true;
+        if (this.throwable) {
+            return this.y < 350;  // höhe anpassen für die Flaschen
         } else {
             return this.y < 140;
         }

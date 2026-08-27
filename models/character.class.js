@@ -11,6 +11,7 @@ export class Character extends MovableObject {
     coinsMax = 10;
     bottle = 0;
     bottleMax = 10;
+    lastThrow = 0;
     showFrame = true; // nur für die Hitboxen später entfernen
     offset = {
         top: 120,
