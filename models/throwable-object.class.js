@@ -4,6 +4,7 @@ import { MovableObject } from "./movable-object.class.js";
 export class ThrowableObject extends MovableObject {
     throwable = true;
     hasHit = false;
+    hitTime = 0;
 
     constructor(x, y) {
         super().loadImage(ImageHub.bottle.normal);
@@ -31,6 +32,13 @@ export class ThrowableObject extends MovableObject {
 
     bottleHit() {
         this.hasHit = true;
+        this.hitTime = new Date().getTime();
         console.log("hit");
+    }
+
+    splashFinished() {
+        let timePassed = new Date().getTime() - this.hitTime;
+        timePassed = timePassed / 1000;
+        return timePassed > 0.25;
     }
 }

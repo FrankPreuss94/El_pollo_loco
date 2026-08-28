@@ -52,8 +52,11 @@ export class World {
 
     checkBottleHit() {
         this.throwableObjects.forEach((bottle) => {
-            if (!bottle.isAboveGround()) {
+            if (!bottle.isAboveGround() && !bottle.hasHit) {
                 bottle.bottleHit();
+            }
+            if (bottle.hasHit && bottle.splashFinished()) {
+                this.throwableObjects.splice(this.throwableObjects.indexOf(bottle), 1);
             }
         });
     }
