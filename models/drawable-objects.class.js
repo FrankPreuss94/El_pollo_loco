@@ -45,7 +45,7 @@ export class DrawableObject {
             this.rY = this.y + this.offset.top;
             this.rW = this.width - this.offset.left - this.offset.right;
             this.rH = this.height - this.offset.top - this.offset.bottom;
-        }, 200); // TODO anpassen an world.checkCollisions()
+        }, 30); // TODO anpassen an world.checkCollisions()
     }
 
     draw(ctx) {
