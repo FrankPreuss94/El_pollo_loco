@@ -19,6 +19,7 @@ export class Character extends MovableObject {
         bottom: 16,
         left: 40
     };
+    idleTimer = new Date().getTime();;
 
 
     constructor() {
@@ -27,9 +28,12 @@ export class Character extends MovableObject {
         this.loadImages(ImageHub.charakter.jump);
         this.loadImages(ImageHub.charakter.dead);
         this.loadImages(ImageHub.charakter.hurt);
+        this.loadImages(ImageHub.charakter.idle);
+        this.loadImages(ImageHub.charakter.long_idle);
         this.applyGravity();
         this.animate();
         this.getHitBox();
+
     }
 
     animate() {
@@ -37,31 +41,50 @@ export class Character extends MovableObject {
             if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
+                this.resetIdleTimer();
             }
             if (this.world.keyboard.left && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
+                this.resetIdleTimer();
+
             }
             if (this.world.keyboard.space && !this.isAboveGround() || this.world.keyboard.up && !this.isAboveGround()) {
                 this.jump();
+                this.resetIdleTimer();
+
             }
             this.world.camera_x = -this.x + 100;
+            this.idle();
         }, 1000 / 60);
 
         setInterval(() => {
             if (this.isDead()) {
-                this.playAnimation(ImageHub.charakter.dead)
+                this.playAnimation(ImageHub.charakter.dead);
             } else if (this.isHurt()) {
-                this.playAnimation(ImageHub.charakter.hurt)
+                this.playAnimation(ImageHub.charakter.hurt);
             } else if (this.isAboveGround()) {
-                this.playAnimation(ImageHub.charakter.jump)
+                this.playAnimation(ImageHub.charakter.jump);
+            } else if (this.world.keyboard.right || this.world.keyboard.left) {
+                this.playAnimation(ImageHub.charakter.walk);
+            } else if (this.idle()) {
+                this.playAnimation(ImageHub.charakter.long_idle);
             } else {
-                if (this.world.keyboard.right || this.world.keyboard.left) {
-                    // walk animation
-                    this.playAnimation(ImageHub.charakter.walk)
-                }
+                this.playAnimation(ImageHub.charakter.idle);
             }
-        }, 50);
+        }, 100);
+    }
+
+    idle() {
+        let timePassed = new Date().getTime() - this.idleTimer;
+        timePassed = timePassed / 1000;
+        return timePassed > 8;
+    }
+
+    resetIdleTimer() {
+        this.idleTimer = new Date().getTime();
+        console.log(this.idleTimer);
+
     }
 
     jump() {
