@@ -2,15 +2,16 @@ import { DrawableObject } from "./drawable-objects.class.js";
 
 export class StatusBar extends DrawableObject {
 
+    x = 30;
     percentage = 100;
     ImageHubPath;
 
 
-    constructor(_imageHubPath, _y, currentValue, maxValue) {
+    constructor(_imageHubPath, x, y, currentValue, maxValue) {
         super();
         this.loadImages(_imageHubPath);
-        this.x = 30;
-        this.y = _y;
+        this.x = x;
+        this.y = y;
         this.width = 200;
         this.height = 60;
         this.imageHubPath = _imageHubPath;

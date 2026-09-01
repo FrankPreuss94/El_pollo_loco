@@ -83,8 +83,6 @@ export class Character extends MovableObject {
 
     resetIdleTimer() {
         this.idleTimer = new Date().getTime();
-        console.log(this.idleTimer);
-
     }
 
     jump() {

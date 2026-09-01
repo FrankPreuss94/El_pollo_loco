@@ -1,7 +1,7 @@
 import { DrawableObject } from "./drawable-objects.class.js";
 
 export class MovableObject extends DrawableObject {
-    speed = 0.15; // muss hier nicht definiert werden, nur deklarieren
+    speed; // muss hier nicht definiert werden, nur deklarieren
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
@@ -22,14 +22,16 @@ export class MovableObject extends DrawableObject {
 
     isAboveGround() {
         if (this.throwable) {
-            return this.y < 350;  // höhe anpassen für die Flaschen
+            return this.y < 350;
+        } else if (this.boss) {
+            return this.y < 55;
         } else {
             return this.y < 140;
         }
     }
 
-    hit() {
-        this.hp -= 5;
+    hit(damage) {
+        this.hp -= damage;
         if (this.hp < 0) {
             this.hp = 0;
         } else {

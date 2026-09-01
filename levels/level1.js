@@ -8,22 +8,22 @@ import { Level } from "../models/level.class.js";
 
 export const level1 = new Level(
     [
+        new Endboss,
         new Chicken,
         new Chicken,
         new Chicken,
-        new Chicken,
-        new Chicken,
-        new Chicken,
-        new Chicken,
-        new Chicken,
-        new SmallChicken,
-        new SmallChicken,
-        new SmallChicken,
-        new SmallChicken,
-        new SmallChicken,
-        new SmallChicken,
-        new SmallChicken,
-        new Endboss
+        // new Chicken,
+        // new Chicken,
+        // new Chicken,
+        // new Chicken,
+        // new Chicken,
+        // new SmallChicken,
+        // new SmallChicken,
+        // new SmallChicken,
+        // new SmallChicken,
+        // new SmallChicken,
+        // new SmallChicken,
+        // new SmallChicken
 
     ],
     [

@@ -8,14 +8,17 @@ export class World {
 
     character = new Character;
     level = level1;
+    endboss = this.level.enemies[0];
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
-    healthBar = new StatusBar(ImageHub.stausbars.health_blue, 0, 100, this.character.hpMax);
-    coinsBar = new StatusBar(ImageHub.stausbars.coins_blue, 50, 0, this.character.coinsMax);
-    bottleBar = new StatusBar(ImageHub.stausbars.bottle_blue, 100, 0); //hier max bottles anpassen
+    healthBar = new StatusBar(ImageHub.stausbars.health_blue, 30, 0, 100, this.character.hpMax);
+    coinsBar = new StatusBar(ImageHub.stausbars.coins_blue, 30, 50, 0, this.character.coinsMax);
+    bottleBar = new StatusBar(ImageHub.stausbars.bottle_blue, 30, 100, 0); //hier max bottles anpassen
+    bossBar = new StatusBar(ImageHub.stausbars.boss_blue, 480, -50, 100, this.level.enemies[0].hpMax);;
     throwableObjects = [];
+    bossSpawned = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -38,7 +41,17 @@ export class World {
             this.collectItems();
             this.checkBottleCollision();
             this.checkBottleHit();
+            this.bossSpawn();
         }, 30);
+    }
+
+    bossSpawn() {
+        if (this.character.x > 4600 && !this.bossSpawned && this.bossBar.y < 8) {
+            this.bossSpawned = true;
+            console.log("hello there");
+            this.bossBar.y = 8;
+            this.endboss.bossBehavior();
+        }
     }
 
     checkThrownObjects() {
@@ -65,15 +78,17 @@ export class World {
     checkBottleCollision() {
         this.throwableObjects.forEach((bottle) => {
             this.level.enemies.forEach((enemy) => {
-                if (bottle.isColliding(enemy)) {
+                if (bottle.isColliding(enemy) && !bottle.hasHit) {
                     bottle.bottleHit();
-                    enemy.hit();
-                    console.log("hit");
+                    enemy.hit(20);
+                    console.log(this.endboss.hp);
+                    this.bossBar.setPercentage(this.endboss.hp, this.endboss.hpMax);
 
                 }
             });
         });
     }
+
 
 
     throwCooldown() {
@@ -85,7 +100,7 @@ export class World {
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead()) {
-                this.character.hit();
+                this.character.hit(5);
                 this.healthBar.setPercentage(this.character.hp, this.character.hpMax);
             }
         });
@@ -101,7 +116,7 @@ export class World {
         })
     }
 
-    updateCollectBar(item) {     // ggf. wo anders platzieren
+    updateCollectBar(item) {
         if (item.type == "coin") {
             this.coinsBar.setPercentage(this.character.coins, this.character.coinsMax);
         } else if (item.type == "bottle") {
@@ -112,7 +127,7 @@ export class World {
     beatChicken() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
-                enemy.hit();
+                enemy.hit(5);
             }
         });
     }
@@ -129,6 +144,7 @@ export class World {
         this.addToMap(this.healthBar);
         this.addToMap(this.coinsBar);
         this.addToMap(this.bottleBar);
+        this.addToMap(this.bossBar);
         this.ctx.translate(this.camera_x, 0); // forwards
 
         this.addToMap(this.character);

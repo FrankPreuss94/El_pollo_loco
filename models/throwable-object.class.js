@@ -45,7 +45,6 @@ export class ThrowableObject extends MovableObject {
             this.hasHit = true;
             this.hitTime = new Date().getTime();
             this.speedY = 0;
-            console.log(this.y);
         }
     }
 
