@@ -53,7 +53,7 @@ export class Endboss extends MovableObject {
 
     move() {
         setInterval(() => {
-            if (this.isMoving) {
+            if (this.isMoving && !this.isDead()) {
                 this.moveLeft();
             }
         }, 1000 / 60);
@@ -72,15 +72,17 @@ export class Endboss extends MovableObject {
 
 
     attack() {
-        this.isAttacking = true;
-        this.speedY = 30;
-        const attackInterval = setInterval(() => {
-            this.moveLeft();
-            if (!this.isAboveGround() && this.speedY < 0) {
-                this.isAttacking = false;
-                clearInterval(attackInterval);
-                this.bossBehavior();
-            }
-        }, 1000 / 60);
+        if (!this.isDead) {
+            this.isAttacking = true;
+            this.speedY = 30;
+            const attackInterval = setInterval(() => {
+                this.moveLeft();
+                if (!this.isAboveGround() && this.speedY < 0) {
+                    this.isAttacking = false;
+                    clearInterval(attackInterval);
+                    this.bossBehavior();
+                }
+            }, 1000 / 60);
+        }
     }
 }
