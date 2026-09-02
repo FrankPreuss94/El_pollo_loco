@@ -14,8 +14,54 @@
 </head>
 
 <body>
+    <section class="start_screen" id="start-screen">
+        <img class="headline" src="assets/img/menu/headline.png" alt="El Pollo Loco">
+        <div class="button_wrapper">
+            <button id="start-btn">Start</button>
+            <button id="howto-btn">How-to</button>
+            <button id="imprint-btn">Imprint</button>
+        </div>
+    </section>
 
-    <h1>El pollo loco</h1>
+    <dialog closedby="any" class="howto_dialog" id="howto-dialog">
+        <div class="howto_wrapper">
+            <div class="explanation">
+                <p>HILF PEPE ALLE HINDERNISSE ZU ÜBERWINDEN <br>UND DIE BÖSEN HÜHNER ZU BESIEGEN!</p>
+            </div>
+            <div class="actions">
+                <div class="movement">
+                    <p>Bewegung</p>
+                    <div class="keyboard_buttons">
+                        <div>
+                            <img src="assets/img/menu/keyboard_icons/arrow_left.png" alt="arrow left">
+                            <img src="assets/img/menu/keyboard_icons/arrow_right.png" alt="arrow right">
+                        </div>
+                        <p>laufen</p>
+                    </div>
+                    <div class="keyboard_buttons">
+                        <div>
+                            <img src="assets/img/menu/keyboard_icons/arrow_up.png" alt="arrow up">
+                            <img src="assets/img/menu/keyboard_icons/keyboard_space.png" alt="keyboard space">
+                        </div>
+                        <p>springen</p>
+                    </div>
+                    <div class="keyboard_buttons">
+                        <div>
+                            <img src="assets/img/menu/keyboard_icons/keyboard_d.png" alt="keyboard d">
+                        </div>
+                        <p>Flaschen werfen</p>
+                    </div>
+                </div>
+                <div class="goal">
+                    <p>Ziel</p>
+                </div>
+
+            </div>
+        </div>
+    </dialog>
+    <dialog closedby="any" id="imprint-dialog">
+        <h2>Imprint</h2>
+    </dialog>
 
     <canvas id="canvas" width="720" height="480"></canvas>
 

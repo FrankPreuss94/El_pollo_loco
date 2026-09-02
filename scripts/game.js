@@ -1,6 +1,12 @@
 import { Keyboard } from "../models/keyboard.class.js";
 import { World } from "../models/world.class.js";
 
+const startScreenRef = document.getElementById("start-screen")
+const startBtnRef = document.getElementById("start-btn");
+const howToRef = document.getElementById("howto-dialog");
+const howToBtnRef = document.getElementById("howto-btn");
+const imprintRef = document.getElementById("imprint-dialog");
+const imprintBtnRef = document.getElementById("imprint-btn");
 let canvas;
 let world;
 let keyboard = new Keyboard;
@@ -8,6 +14,7 @@ let keyboard = new Keyboard;
 function init() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
+    startScreenRef.style.display = "none";
 }
 
 window.addEventListener("keydown", (event) => {
@@ -52,8 +59,18 @@ window.addEventListener("keyup", (event) => {
     }
 })
 
-// init()
+function openHowTo() {
+    howToRef.showModal();
+}
 
-// window.init = init;
+function openImprint() {
+    imprintRef.showModal();
+}
 
-window.addEventListener('load', init)
+howToBtnRef.addEventListener("click", openHowTo);
+
+imprintBtnRef.addEventListener("click", openImprint);
+
+startBtnRef.addEventListener("click", init)
+
+// window.addEventListener('load', init)
