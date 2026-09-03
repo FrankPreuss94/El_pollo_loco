@@ -20,10 +20,11 @@ export class World {
     throwableObjects = [];
     bossSpawned = false;
 
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard, showEndScreen) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.showEndScreen = showEndScreen;
         this.draw();
         this.setWorld();
         this.run();
@@ -42,6 +43,7 @@ export class World {
             this.checkBottleCollision();
             this.checkBottleHit();
             this.bossSpawn();
+            this.checkGameOver();
         }, 30);
     }
 
@@ -88,8 +90,6 @@ export class World {
             });
         });
     }
-
-
 
     throwCooldown() {
         let timePassed = new Date().getTime() - this.character.lastThrow;
@@ -190,6 +190,20 @@ export class World {
     flickImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
+    }
+
+    checkGameOver() {
+        if (this.character.isDead()) {
+            setTimeout(() => {
+                this.showEndScreen("endscreen_lost");
+            }, 1500);
+        }
+
+        if (this.endboss.isDead()) {
+            setTimeout(() => {
+                this.showEndScreen("endscreen_won");
+            }, 1500);
+        }
     }
 
 }

@@ -7,13 +7,15 @@ const howToRef = document.getElementById("howto-dialog");
 const howToBtnRef = document.getElementById("howto-btn");
 const imprintRef = document.getElementById("imprint-dialog");
 const imprintBtnRef = document.getElementById("imprint-btn");
+const endScreenRef = document.getElementById("end-screen");
+
 let canvas;
 let world;
 let keyboard = new Keyboard;
 
 function init() {
     canvas = document.getElementById("canvas");
-    world = new World(canvas, keyboard);
+    world = new World(canvas, keyboard, showEndScreen);
     startScreenRef.style.display = "none";
 }
 
@@ -65,6 +67,10 @@ function openHowTo() {
 
 function openImprint() {
     imprintRef.showModal();
+}
+
+function showEndScreen(result) {
+    endScreenRef.classList.add(result);
 }
 
 howToBtnRef.addEventListener("click", openHowTo);

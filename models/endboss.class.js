@@ -29,7 +29,7 @@ export class Endboss extends MovableObject {
         this.loadImages(ImageHub.endboss.attack);
         this.loadImages(ImageHub.endboss.hurt);
         this.loadImages(ImageHub.endboss.dead);
-        this.applyGravity(55);
+        this.applyGravity();
         this.animate();
         this.move();
         this.getHitBox();
@@ -72,7 +72,7 @@ export class Endboss extends MovableObject {
 
 
     attack() {
-        if (!this.isDead) {
+        if (!this.isDead()) {
             this.isAttacking = true;
             this.speedY = 30;
             const attackInterval = setInterval(() => {

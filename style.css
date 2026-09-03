@@ -13,10 +13,6 @@ body {
 section {
     width: 725px;
     height: 485px;
-    background-image: url(assets/img/menu/startscreen_bg.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: rgb(113, 124, 148);
     border: 2px solid rgb(25, 25, 25);
     border-radius: 16px;
     position: absolute;
@@ -27,6 +23,10 @@ section {
 }
 
 .start_screen {
+    background-image: url(assets/img/menu/startscreen_bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+
     .headline {
         width: 40%;
     }
@@ -63,6 +63,53 @@ section {
         }
     }
 }
+
+.endscreen {
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: none;
+    justify-content: flex-end;
+
+    .end_button_wrapper {
+        padding-bottom: 40px;
+
+        /* position: absolute; */
+        button {
+            width: 160px;
+            height: 50px;
+            background-image: url(assets/img/menu/button2_bg.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 105% 120%;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: bold;
+            font-size: 24px;
+            color: #FDEDCB;
+            -webkit-text-stroke: 1px black;
+            text-align: center;
+        }
+
+        button:hover {
+            background-image: url(assets/img/menu/button2_bg_hover.png);
+        }
+    }
+}
+
+.endscreen_won {
+    background-image: url(assets/img/menu/you_won_bg.png);
+    display: flex;
+}
+
+.endscreen_lost {
+    background-image: url(assets/img/menu/you_lost_bg.png);
+    display: flex;
+}
+
+
 
 dialog {
     margin: auto;
@@ -197,6 +244,8 @@ dialog {
         gap: 16px;
     }
 }
+
+
 
 canvas {
     background-color: black;
