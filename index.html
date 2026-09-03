@@ -18,8 +18,8 @@
         <img class="headline" src="assets/img/menu/headline.png" alt="El Pollo Loco">
         <div class="button_wrapper">
             <button id="start-btn">Start</button>
-            <button id="howto-btn">How-to</button>
-            <button id="imprint-btn">Imprint</button>
+            <button id="howto-btn">Anleitung</button>
+            <button id="imprint-btn">Impressum</button>
         </div>
     </section>
 
@@ -30,7 +30,7 @@
             </div>
             <div class="actions">
                 <div class="movement">
-                    <p>Bewegung</p>
+                    <h3>Bewegung</h3>
                     <div class="keyboard_buttons">
                         <div>
                             <img src="assets/img/menu/keyboard_icons/arrow_left.png" alt="arrow left">
@@ -53,14 +53,32 @@
                     </div>
                 </div>
                 <div class="goal">
-                    <p>Ziel</p>
+                    <h3>Ziel</h3>
+                    <div class="goal_descript">
+                        <img src="assets/img/menu/chicken_boss 1.png" alt="chicken boss">
+                        <p>Besiege alle bösen Hühner und erreiche <br>das Ende!</p>
+                    </div>
                 </div>
 
             </div>
+            <div class="tipp">
+                <h3>Tipp</h3>
+                <div class="tipp_descript">
+                    <img src="assets/img/6_salsa_bottle/salsa_bottle.png" alt="salsa bottle">
+                    <p>heb dir ein paar Salsa Flaschen <br> für das Ende auf!</p>
+                </div>
+            </div>
         </div>
     </dialog>
-    <dialog closedby="any" id="imprint-dialog">
-        <h2>Imprint</h2>
+    <dialog closedby="any" class="imprint_dialog" id="imprint-dialog">
+        <div class="imprint_wrapper">
+            <p>Angaben nach §5 DDG</p>
+            <p>
+                Frank Preuß <br>
+                Musterstraße 1<br>
+                12345 Musterort
+            </p>
+        </div>
     </dialog>
 
     <canvas id="canvas" width="720" height="480"></canvas>
