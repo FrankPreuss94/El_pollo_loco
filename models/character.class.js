@@ -1,3 +1,4 @@
+import { AudioHub } from "./audiohub.class.js";
 import { ImageHub } from "./image-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
 
@@ -59,6 +60,7 @@ export class Character extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => {
+            this.checkWalkSound();
             if (this.isDead()) {
                 this.playAnimation(ImageHub.charakter.dead);
             } else if (this.isHurt()) {
@@ -73,6 +75,14 @@ export class Character extends MovableObject {
                 this.playAnimation(ImageHub.charakter.idle);
             }
         }, 100);
+    }
+
+    checkWalkSound() {
+        if (this.world.keyboard.right || this.world.keyboard.left) {
+            AudioHub.playLoop(AudioHub.CHAR_RUN);
+        } else {
+            AudioHub.stopLoop(AudioHub.CHAR_RUN);
+        }
     }
 
     idle() {

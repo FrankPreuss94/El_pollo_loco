@@ -8,6 +8,8 @@ const howToBtnRef = document.getElementById("howto-btn");
 const imprintRef = document.getElementById("imprint-dialog");
 const imprintBtnRef = document.getElementById("imprint-btn");
 const endScreenRef = document.getElementById("end-screen");
+const playAgainRef = document.getElementById("play-again-btn");
+const backHomeRef = document.getElementById("back-home-btn");
 
 let canvas;
 let world;
@@ -17,6 +19,7 @@ function init() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard, showEndScreen);
     startScreenRef.style.display = "none";
+    endScreenRef.classList.remove("endscreen_won", "endscreen_lost");
 }
 
 window.addEventListener("keydown", (event) => {
@@ -73,10 +76,18 @@ function showEndScreen(result) {
     endScreenRef.classList.add(result);
 }
 
+function backHome() {
+    world.stopGame();
+    endScreenRef.classList.remove("endscreen_won", "endscreen_lost");
+    startScreenRef.style.display = "flex";
+}
+
 howToBtnRef.addEventListener("click", openHowTo);
 
 imprintBtnRef.addEventListener("click", openImprint);
 
-startBtnRef.addEventListener("click", init)
+startBtnRef.addEventListener("click", init);
+
+backHomeRef.addEventListener("click", backHome);
 
 // window.addEventListener('load', init)

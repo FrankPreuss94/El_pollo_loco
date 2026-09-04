@@ -16,13 +16,14 @@ section {
     border: 2px solid rgb(25, 25, 25);
     border-radius: 16px;
     position: absolute;
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
 .start_screen {
+    display: flex;
+
     background-image: url(assets/img/menu/startscreen_bg.png);
     background-repeat: no-repeat;
     background-size: cover;

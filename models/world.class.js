@@ -1,4 +1,5 @@
 import { level1 } from "../levels/level1.js";
+import { AudioHub } from "./audiohub.class.js";
 import { Character } from "./character.class.js";
 import { ImageHub } from "./image-hub.class.js";
 import { StatusBar } from "./status-bar.class.js";
@@ -19,6 +20,7 @@ export class World {
     bossBar = new StatusBar(ImageHub.stausbars.boss_blue, 480, -50, 100, this.level.enemies[0].hpMax);;
     throwableObjects = [];
     bossSpawned = false;
+    gameRunning = true;
 
     constructor(canvas, keyboard, showEndScreen) {
         this.ctx = canvas.getContext('2d');
@@ -36,6 +38,7 @@ export class World {
 
     run() {
         setInterval(() => {
+            if (!this.gameRunning) return;
             this.beatChicken();
             this.checkCollisions();
             this.checkThrownObjects();
@@ -63,6 +66,7 @@ export class World {
             this.character.bottle -= 1;
             this.bottleBar.setPercentage(this.character.bottle, this.character.bottleMax);
             this.character.lastThrow = new Date().getTime();
+            AudioHub.playOne(AudioHub.BOTTLE_THROW);
         }
     }
 
@@ -70,6 +74,7 @@ export class World {
         this.throwableObjects.forEach((bottle) => {
             if (!bottle.isAboveGround() && !bottle.hasHit) {
                 bottle.bottleHit();
+                AudioHub.playOne(AudioHub.BOTTLE_BREAK);
             }
             if (bottle.hasHit && bottle.splashFinished()) {
                 this.throwableObjects.splice(this.throwableObjects.indexOf(bottle), 1);
@@ -204,6 +209,10 @@ export class World {
                 this.showEndScreen("endscreen_won");
             }, 1500);
         }
+    }
+
+    stopGame() {
+        this.gameRunning = false;
     }
 
 }
