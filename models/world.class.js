@@ -104,7 +104,7 @@ export class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead()) {
+            if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead() && !this.character.isHurt()) {
                 this.character.hit(5);
                 this.healthBar.setPercentage(this.character.hp, this.character.hpMax);
             }
@@ -140,8 +140,11 @@ export class World {
 
     beatChicken() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
+            if (this.character.isColliding(enemy) && this.character.speedY < 0 &&
+                this.character.rY + this.character.rH < enemy.rY + enemy.rH / 2 &&
+                !enemy.isDead() && !enemy.boss) {
                 enemy.hit(5);
+                this.character.speedY = 15;
             }
         });
     }

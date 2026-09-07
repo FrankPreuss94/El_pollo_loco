@@ -45,6 +45,7 @@ export class AudioHub {
         AudioHub.CHAR_DYING,
         AudioHub.CHAR_RUN,
         AudioHub.CHAR_SLEEP,
+        AudioHub.CHAR_JUMP,
 
         AudioHub.CHICKEN_DEAD,
         AudioHub.CHICKEN_DEAD2,

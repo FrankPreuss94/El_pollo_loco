@@ -42,7 +42,7 @@ export class MovableObject extends DrawableObject {
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit;
         timePassed = timePassed / 1000;
-        return timePassed < 1; // länge der hurt-animation
+        return timePassed < 0.5; // länge der hurt-animation
     }
 
     isDead() {
