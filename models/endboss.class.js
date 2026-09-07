@@ -1,5 +1,6 @@
 import { ImageHub } from "./image-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
+import { AudioHub } from "./audiohub.class.js";
 
 export class Endboss extends MovableObject {
 
@@ -20,6 +21,8 @@ export class Endboss extends MovableObject {
     boss = true;
     isMoving = false;
     isAttacking = false;
+    bossSoundPlayed = false;
+    bossDeathSoundPlayed = false;
 
 
     constructor() {
@@ -39,6 +42,7 @@ export class Endboss extends MovableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(ImageHub.endboss.dead);
+                this.playDeathSound();
             } else if (this.isHurt()) {
                 this.playAnimation(ImageHub.endboss.hurt);
             } else if (this.isAttacking) {
@@ -51,6 +55,14 @@ export class Endboss extends MovableObject {
         }, 200);
     }
 
+    playDeathSound() {
+        if (!this.bossDeathSoundPlayed) {
+            AudioHub.stopOne(AudioHub.ENDBOSS_ANGRY);
+            AudioHub.playOne(AudioHub.ENDBOSS_DEAD);
+            this.bossDeathSoundPlayed = true;
+        }
+    }
+
     move() {
         setInterval(() => {
             if (this.isMoving && !this.isDead()) {
@@ -60,6 +72,11 @@ export class Endboss extends MovableObject {
     }
 
     bossBehavior() {
+        if (!this.bossSoundPlayed) {
+            AudioHub.playOne(AudioHub.ENDBOSS_ANGRY);
+            this.bossSoundPlayed = true;
+        }
+
         this.isMoving = false;
         setTimeout(() => {
             this.isMoving = true;

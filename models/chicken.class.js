@@ -1,5 +1,6 @@
 import { ImageHub } from "./image-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
+import { AudioHub } from "./audiohub.class.js";
 
 export class Chicken extends MovableObject {
     y = 360;
@@ -13,6 +14,7 @@ export class Chicken extends MovableObject {
         bottom: 5,
         left: 5
     };
+    deathSoundPlayed = false;
 
     constructor() {
         super().loadImage(ImageHub.chicken.walk[0]);
@@ -34,12 +36,27 @@ export class Chicken extends MovableObject {
 
         setInterval(() => {
             if (this.isDead()) {
-                this.playAnimation(ImageHub.chicken.dead)
+                this.playAnimation(ImageHub.chicken.dead);
                 this.speed = 0;
+                this.playDeathSound();
             } else {
-                this.playAnimation(ImageHub.chicken.walk)
+                this.playAnimation(ImageHub.chicken.walk);
             }
         }, 150);
+    }
+
+    playDeathSound() {
+        if (!this.deathSoundPlayed) {
+            const sounds = [
+                AudioHub.CHICKEN_DEAD,
+                AudioHub.CHICKEN_DEAD2
+            ];
+
+            const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+            AudioHub.playOne(randomSound);
+
+            this.deathSoundPlayed = true;
+        }
     }
 
 

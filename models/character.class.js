@@ -20,7 +20,10 @@ export class Character extends MovableObject {
         bottom: 16,
         left: 40
     };
-    idleTimer = new Date().getTime();;
+    idleTimer = new Date().getTime();
+    lastHitSound = 0;
+    lastJumpSound = 0;
+    dyingSoundPlayed = false;
 
 
     constructor() {
@@ -60,7 +63,8 @@ export class Character extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-            this.checkWalkSound();
+
+            this.checkCharacterSound();
             if (this.isDead()) {
                 this.playAnimation(ImageHub.charakter.dead);
             } else if (this.isHurt()) {
@@ -68,6 +72,7 @@ export class Character extends MovableObject {
             } else if (this.isAboveGround()) {
                 this.playAnimation(ImageHub.charakter.jump);
             } else if (this.world.keyboard.right || this.world.keyboard.left) {
+                AudioHub.playLoop(AudioHub.CHAR_RUN);
                 this.playAnimation(ImageHub.charakter.walk);
             } else if (this.idle()) {
                 this.playAnimation(ImageHub.charakter.long_idle);
@@ -77,11 +82,47 @@ export class Character extends MovableObject {
         }, 100);
     }
 
-    checkWalkSound() {
-        if (this.world.keyboard.right || this.world.keyboard.left) {
+    checkCharacterSound() {
+        this.checkDamageSound();
+        this.checkMovementSound();
+    }
+
+    checkDamageSound() {
+        if (this.isDead()) {
+            AudioHub.stopLoop(AudioHub.CHAR_RUN);
+            AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
+
+            if (!this.dyingSoundPlayed) {
+                AudioHub.playOne(AudioHub.CHAR_DYING);
+                this.dyingSoundPlayed = true;
+            }
+        } else if (this.isHurt()) {
+            AudioHub.stopLoop(AudioHub.CHAR_RUN);
+            AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
+
+            if (this.lastHitSound != this.lastHit) {
+                AudioHub.playOne(AudioHub.CHAR_DAMAGE);
+                this.lastHitSound = this.lastHit;
+            }
+        }
+    }
+
+    checkMovementSound() {
+        if (this.isDead() || this.isHurt()) {
+            AudioHub.stopLoop(AudioHub.CHAR_RUN);
+            AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
+        } else if (this.isAboveGround()) {
+            AudioHub.stopLoop(AudioHub.CHAR_RUN);
+            AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
+        } else if (this.world.keyboard.right || this.world.keyboard.left) {
+            AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
             AudioHub.playLoop(AudioHub.CHAR_RUN);
+        } else if (this.idle()) {
+            AudioHub.stopLoop(AudioHub.CHAR_RUN);
+            AudioHub.playLoop(AudioHub.CHAR_SLEEP);
         } else {
             AudioHub.stopLoop(AudioHub.CHAR_RUN);
+            AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
         }
     }
 
@@ -97,6 +138,7 @@ export class Character extends MovableObject {
 
     jump() {
         this.speedY = 27.5;
+        AudioHub.playOne(AudioHub.CHAR_JUMP);
     }
 
     collectibleCounter(item) { // eventuell in eine andere class verschieben

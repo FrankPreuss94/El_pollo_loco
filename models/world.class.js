@@ -21,6 +21,7 @@ export class World {
     throwableObjects = [];
     bossSpawned = false;
     gameRunning = true;
+    gameOverTriggered = false;
 
     constructor(canvas, keyboard, showEndScreen) {
         this.ctx = canvas.getContext('2d');
@@ -88,9 +89,8 @@ export class World {
                 if (bottle.isColliding(enemy) && !bottle.hasHit) {
                     bottle.bottleHit();
                     enemy.hit(20);
-                    console.log(this.endboss.hp);
+                    AudioHub.playOne(AudioHub.BOTTLE_BREAK);
                     this.bossBar.setPercentage(this.endboss.hp, this.endboss.hpMax);
-
                 }
             });
         });
@@ -115,10 +115,19 @@ export class World {
         this.level.collectableObject.forEach((item) => {
             if (this.character.isColliding(item)) {
                 this.character.collectibleCounter(item);
-                this.updateCollectBar(item)
-                this.level.collectableObject.splice(this.level.collectableObject.indexOf(item), 1)
+                this.updateCollectBar(item);
+                this.playCollectSound(item);
+                this.level.collectableObject.splice(this.level.collectableObject.indexOf(item), 1);
             }
         })
+    }
+
+    playCollectSound(item) {
+        if (item.type == "coin") {
+            AudioHub.playOne(AudioHub.COLLECT_COIN);
+        } else if (item.type == "bottle") {
+            AudioHub.playOne(AudioHub.COLLECT_BOTTLE);
+        }
     }
 
     updateCollectBar(item) {
@@ -198,13 +207,17 @@ export class World {
     }
 
     checkGameOver() {
+        if (this.gameOverTriggered) return;
+
         if (this.character.isDead()) {
+            this.gameOverTriggered = true;
             setTimeout(() => {
                 this.showEndScreen("endscreen_lost");
             }, 1500);
         }
 
         if (this.endboss.isDead()) {
+            this.gameOverTriggered = true;
             setTimeout(() => {
                 this.showEndScreen("endscreen_won");
             }, 1500);

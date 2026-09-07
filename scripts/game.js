@@ -1,5 +1,6 @@
 import { Keyboard } from "../models/keyboard.class.js";
 import { World } from "../models/world.class.js";
+import { AudioHub } from "../models/audiohub.class.js";
 
 const startScreenRef = document.getElementById("start-screen")
 const startBtnRef = document.getElementById("start-btn");
@@ -20,6 +21,8 @@ function init() {
     world = new World(canvas, keyboard, showEndScreen);
     startScreenRef.style.display = "none";
     endScreenRef.classList.remove("endscreen_won", "endscreen_lost");
+
+    AudioHub.playLoop(AudioHub.GAME_BACKGROUND);
 }
 
 window.addEventListener("keydown", (event) => {
@@ -73,11 +76,18 @@ function openImprint() {
 }
 
 function showEndScreen(result) {
+    AudioHub.stopAll();
+    if (result == "endscreen_won") {
+        AudioHub.playOne(AudioHub.GAME_WON);
+    } else if (result == "endscreen_lost") {
+        AudioHub.playOne(AudioHub.GAME_LOST);
+    }
     endScreenRef.classList.add(result);
 }
 
 function backHome() {
     world.stopGame();
+    AudioHub.stopAll();
     endScreenRef.classList.remove("endscreen_won", "endscreen_lost");
     startScreenRef.style.display = "flex";
 }

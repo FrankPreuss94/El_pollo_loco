@@ -27,6 +27,7 @@ export class SmallChicken extends Chicken {
             if (this.isDead()) {
                 this.playAnimation(ImageHub.smallChicken.dead)
                 this.speed = 0;
+                this.playDeathSound();
             } else {
                 this.playAnimation(ImageHub.smallChicken.walk)
             }
