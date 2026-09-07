@@ -10,7 +10,7 @@ export class Character extends MovableObject {
     world;
     coins = 0;          // eventuell in andere class verschieben
     coinsMax = 10;
-    bottle = 10;
+    bottle = 0;
     bottleMax = 10;
     lastThrow = 0;
     showFrame = true; // nur für die Hitboxen später entfernen
@@ -41,7 +41,7 @@ export class Character extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
+        this.movementInterval = setInterval(() => {
             if (this.world.keyboard.right && this.x < this.world.level.level_end_x && !this.isDead()) {
                 this.moveRight();
                 this.otherDirection = false;
@@ -51,19 +51,16 @@ export class Character extends MovableObject {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.resetIdleTimer();
-
             }
             if ((this.world.keyboard.space && !this.isAboveGround() || this.world.keyboard.up && !this.isAboveGround()) && !this.isDead()) {
                 this.jump();
                 this.resetIdleTimer();
-
             }
             this.world.camera_x = -this.x + 100;
             this.idle();
         }, 1000 / 60);
 
-        setInterval(() => {
-
+        this.animationInterval = setInterval(() => {
             this.checkCharacterSound();
             if (this.isDead()) {
                 this.playAnimation(ImageHub.charakter.dead);
@@ -82,6 +79,11 @@ export class Character extends MovableObject {
         }, 100);
     }
 
+    stopIntervals() {
+        clearInterval(this.movementInterval);
+        clearInterval(this.animationInterval);
+    }
+
     checkCharacterSound() {
         this.checkDamageSound();
         this.checkMovementSound();
@@ -91,7 +93,6 @@ export class Character extends MovableObject {
         if (this.isDead()) {
             AudioHub.stopLoop(AudioHub.CHAR_RUN);
             AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
-
             if (!this.dyingSoundPlayed) {
                 AudioHub.playOne(AudioHub.CHAR_DYING);
                 this.dyingSoundPlayed = true;
@@ -99,7 +100,6 @@ export class Character extends MovableObject {
         } else if (this.isHurt()) {
             AudioHub.stopLoop(AudioHub.CHAR_RUN);
             AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
-
             if (this.lastHitSound != this.lastHit) {
                 AudioHub.playOne(AudioHub.CHAR_DAMAGE);
                 this.lastHitSound = this.lastHit;

@@ -14,12 +14,13 @@ export class ThrowableObject extends MovableObject {
     };
 
 
-    constructor(x, y) {
+    constructor(x, y, otherDirection) {
         super().loadImage(ImageHub.bottle.normal);
         this.loadImages(ImageHub.bottle.rotation);
         this.loadImages(ImageHub.bottle.splash);
         this.x = x;
         this.y = y;
+        this.otherDirection = otherDirection;
         this.height = 60;
         this.width = 50;
         this.throw();
@@ -31,7 +32,11 @@ export class ThrowableObject extends MovableObject {
         this.applyGravity();
         setInterval(() => {
             if (!this.hasHit) {
-                this.x += 7;
+                if (this.otherDirection) {
+                    this.x -= 7;
+                } else {
+                    this.x += 7;
+                }
                 this.playAnimation(ImageHub.bottle.rotation);
             } else {
                 this.playAnimation(ImageHub.bottle.splash);

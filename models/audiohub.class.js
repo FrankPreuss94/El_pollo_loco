@@ -103,17 +103,14 @@ export class AudioHub {
 
     static toggleMute() {
         AudioHub.muted = !AudioHub.muted;
-
         AudioHub.allSounds.forEach((sound) => {
             sound.file.volume = AudioHub.muted ? 0 : sound.volume;
         });
-
         localStorage.setItem("muted", AudioHub.muted);
     }
 
     static loadMuteState() {
         const savedMute = localStorage.getItem("muted");
-
         if (savedMute === "true") {
             AudioHub.muted = true;
             AudioHub.allSounds.forEach((sound) => {

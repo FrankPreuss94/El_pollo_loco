@@ -1,4 +1,4 @@
-import { level1 } from "../levels/level1.js";
+import { createLevel1 } from "../levels/level1.js";
 import { AudioHub } from "./audiohub.class.js";
 import { Character } from "./character.class.js";
 import { ImageHub } from "./image-hub.class.js";
@@ -8,8 +8,8 @@ import { ThrowableObject } from "./throwable-object.class.js";
 export class World {
 
     character = new Character;
-    level = level1;
-    endboss = this.level.enemies[0];
+    level;
+    endboss;
     canvas;
     ctx;
     keyboard;
@@ -17,13 +17,16 @@ export class World {
     healthBar = new StatusBar(ImageHub.stausbars.health_blue, 30, 0, 100, this.character.hpMax);
     coinsBar = new StatusBar(ImageHub.stausbars.coins_blue, 30, 50, 0, this.character.coinsMax);
     bottleBar = new StatusBar(ImageHub.stausbars.bottle_blue, 30, 100, 0); //hier max bottles anpassen
-    bossBar = new StatusBar(ImageHub.stausbars.boss_blue, 480, -50, 100, this.level.enemies[0].hpMax);;
+    bossBar;
     throwableObjects = [];
     bossSpawned = false;
     gameRunning = true;
     gameOverTriggered = false;
 
     constructor(canvas, keyboard, showEndScreen) {
+        this.level = createLevel1();
+        this.endboss = this.level.enemies[0];
+        this.bossBar = new StatusBar(ImageHub.stausbars.boss_blue, 480, -50, 100, this.endboss.hpMax);
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -62,7 +65,8 @@ export class World {
 
     checkThrownObjects() {
         if (this.keyboard.d && this.character.bottle > 0 && this.throwCooldown()) {
-            const bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
+            const bottle = new ThrowableObject(this.character.otherDirection ? this.character.x : this.character.x + 100,
+                this.character.y + 100, this.character.otherDirection)
             this.throwableObjects.push(bottle);
             this.character.bottle -= 1;
             this.bottleBar.setPercentage(this.character.bottle, this.character.bottleMax);
@@ -114,6 +118,9 @@ export class World {
     collectItems() {
         this.level.collectableObject.forEach((item) => {
             if (this.character.isColliding(item)) {
+                if (item.type == "bottle" && this.character.bottle >= this.character.bottleMax) {
+                    return;
+                }
                 this.character.collectibleCounter(item);
                 this.updateCollectBar(item);
                 this.playCollectSound(item);

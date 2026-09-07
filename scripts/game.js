@@ -18,6 +18,7 @@ const gameMuteIconRef = document.getElementById("game-mute-icon");
 
 let canvas;
 let world;
+let worlds = [];
 let keyboard = new Keyboard;
 
 AudioHub.loadMuteState();
@@ -26,9 +27,9 @@ updateMuteIcons();
 function init() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard, showEndScreen);
+    worlds.push(world);
     startScreenRef.style.display = "none";
     endScreenRef.classList.remove("endscreen_won", "endscreen_lost");
-
     AudioHub.playLoop(AudioHub.GAME_BACKGROUND);
 }
 
@@ -83,6 +84,9 @@ function openImprint() {
 }
 
 function showEndScreen(result) {
+    world.stopGame();
+    world.character.stopIntervals();
+    worlds.splice(worlds.indexOf(world), 1);
     AudioHub.stopAll();
     if (result == "endscreen_won") {
         AudioHub.playOne(AudioHub.GAME_WON);
@@ -115,6 +119,8 @@ howToBtnRef.addEventListener("click", openHowTo);
 imprintBtnRef.addEventListener("click", openImprint);
 
 startBtnRef.addEventListener("click", init);
+
+playAgainRef.addEventListener("click", init);
 
 backHomeRef.addEventListener("click", backHome);
 
