@@ -11,10 +11,17 @@ const imprintBtnRef = document.getElementById("imprint-btn");
 const endScreenRef = document.getElementById("end-screen");
 const playAgainRef = document.getElementById("play-again-btn");
 const backHomeRef = document.getElementById("back-home-btn");
+const startMuteBtnRef = document.getElementById("start-mute-btn");
+const startMuteIconRef = document.getElementById("start-mute-icon");
+const gameMuteBtnRef = document.getElementById("game-mute-btn");
+const gameMuteIconRef = document.getElementById("game-mute-icon");
 
 let canvas;
 let world;
 let keyboard = new Keyboard;
+
+AudioHub.loadMuteState();
+updateMuteIcons();
 
 function init() {
     canvas = document.getElementById("canvas");
@@ -92,6 +99,17 @@ function backHome() {
     startScreenRef.style.display = "flex";
 }
 
+function toggleMute() {
+    AudioHub.toggleMute();
+    updateMuteIcons();
+}
+
+function updateMuteIcons() {
+    const icon = AudioHub.muted ? "sound_off.png" : "sound_on.png";
+    startMuteIconRef.src = `assets/img/menu/${icon}`;
+    gameMuteIconRef.src = `assets/img/menu/${icon}`;
+}
+
 howToBtnRef.addEventListener("click", openHowTo);
 
 imprintBtnRef.addEventListener("click", openImprint);
@@ -99,5 +117,9 @@ imprintBtnRef.addEventListener("click", openImprint);
 startBtnRef.addEventListener("click", init);
 
 backHomeRef.addEventListener("click", backHome);
+
+startMuteBtnRef.addEventListener("click", toggleMute);
+
+gameMuteBtnRef.addEventListener("click", toggleMute);
 
 // window.addEventListener('load', init)

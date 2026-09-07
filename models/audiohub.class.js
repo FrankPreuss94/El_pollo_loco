@@ -5,6 +5,7 @@ class MyAudio {
 
     constructor(_file, _volume) {
         this.file = new Audio(_file);
+        this.volume = _volume;
         this.file.volume = _volume;
         this.file.preload = "auto";
 
@@ -37,6 +38,7 @@ export class AudioHub {
     static BOTTLE_THROW = new MyAudio("assets/audio/throwable/throw.mp3", 0.4);
     static BOTTLE_BREAK = new MyAudio("assets/audio/throwable/bottleBreak.mp3", 0.3);
 
+    static muted = false;
 
     static allSounds = [
         AudioHub.CHAR_DAMAGE,
@@ -63,12 +65,10 @@ export class AudioHub {
 
     static playOne(sound) {
         sound.file.currentTime = 0;
-        console.log(sound.file.readyState);
 
         if (sound.file.readyState === 4 || sound.isLoaded) {
             sound.isLoaded = true;
             sound.file.play();
-            console.log("test2");
         }
     }
 
@@ -100,5 +100,25 @@ export class AudioHub {
         }
     }
 
+    static toggleMute() {
+        AudioHub.muted = !AudioHub.muted;
+
+        AudioHub.allSounds.forEach((sound) => {
+            sound.file.volume = AudioHub.muted ? 0 : sound.volume;
+        });
+
+        localStorage.setItem("muted", AudioHub.muted);
+    }
+
+    static loadMuteState() {
+        const savedMute = localStorage.getItem("muted");
+
+        if (savedMute === "true") {
+            AudioHub.muted = true;
+            AudioHub.allSounds.forEach((sound) => {
+                sound.file.volume = 0;
+            });
+        }
+    }
 
 }
