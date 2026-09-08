@@ -34,70 +34,87 @@
         </div>
     </section>
 
-    <dialog closedby="any" class="howto_dialog" id="howto-dialog">
-        <div class="howto_wrapper">
-            <div class="explanation">
-                <p>HILF PEPE ALLE HINDERNISSE ZU ÜBERWINDEN <br>UND DIE BÖSEN HÜHNER ZU BESIEGEN!</p>
-            </div>
-            <div class="actions">
-                <div class="movement">
-                    <h3>Bewegung</h3>
-                    <div class="keyboard_buttons">
-                        <div>
-                            <img src="assets/img/menu/keyboard_icons/arrow_left.png" alt="arrow left">
-                            <img src="assets/img/menu/keyboard_icons/arrow_right.png" alt="arrow right">
-                        </div>
-                        <p>laufen</p>
-                    </div>
-                    <div class="keyboard_buttons">
-                        <div>
-                            <img src="assets/img/menu/keyboard_icons/arrow_up.png" alt="arrow up">
-                            <img src="assets/img/menu/keyboard_icons/keyboard_space.png" alt="keyboard space">
-                        </div>
-                        <p>springen</p>
-                    </div>
-                    <div class="keyboard_buttons">
-                        <div>
-                            <img src="assets/img/menu/keyboard_icons/keyboard_d.png" alt="keyboard d">
-                        </div>
-                        <p>Flaschen werfen</p>
-                    </div>
-                </div>
-                <div class="goal">
-                    <h3>Ziel</h3>
-                    <div class="goal_descript">
-                        <img src="assets/img/menu/chicken_boss 1.png" alt="chicken boss">
-                        <p>Besiege alle bösen Hühner und erreiche <br>das Ende!</p>
-                    </div>
-                </div>
-
-            </div>
-            <div class="tipp">
-                <h3>Tipp</h3>
-                <div class="tipp_descript">
-                    <img src="assets/img/6_salsa_bottle/salsa_bottle.png" alt="salsa bottle">
-                    <p>heb dir ein paar Salsa Flaschen <br> für das Ende auf!</p>
-                </div>
-            </div>
-        </div>
-    </dialog>
-
-    <dialog closedby="any" class="imprint_dialog" id="imprint-dialog">
-        <div class="imprint_wrapper">
-            <p>Angaben nach §5 DDG</p>
-            <p>
-                Frank Preuß <br>
-                Musterstraße 1<br>
-                12345 Musterort
-            </p>
-        </div>
-    </dialog>
+    <div class="rotate_device">
+        <p>Drehe dein Gerät, um zu spielen.</p>
+    </div>
 
     <div class="game_wrapper">
         <canvas id="canvas" width="720" height="480"></canvas>
         <button class="mute_btn" id="game-mute-btn">
             <img id="game-mute-icon" src="assets/img/menu/sound_on.png" alt="sound on">
         </button>
+        <div class="mobile_controls">
+            <div class="movement_controls">
+                <button id="left-btn"><img src="assets/img/mobile_buttons/mobile_btn_left.png" alt="left"></button>
+                <button id="right-btn"><img src="assets/img/mobile_buttons/mobile_btn_right.png" alt="right"></button>
+            </div>
+
+            <div class="action_controls">
+                <button id="jump-btn"><img src="assets/img/mobile_buttons/mobile_btn_jump.png" alt="jump"></button>
+                <button id="throw-btn"><img src="assets/img/mobile_buttons/mobile_btn_throw.png" alt="throw"></button>
+            </div>
+        </div>
+        <dialog closedby="any" class="howto_dialog" id="howto-dialog">
+            <div class="howto_wrapper">
+                <button class="close_button" id="close-howto"><img src="assets/img/menu/close_button.png"
+                        alt="close"></button>
+                <div class="explanation">
+                    <p>HILF PEPE ALLE HINDERNISSE ZU ÜBERWINDEN <br>UND DIE BÖSEN HÜHNER ZU BESIEGEN!</p>
+                </div>
+                <div class="actions">
+                    <div class="movement">
+                        <h3>Bewegung</h3>
+                        <div class="keyboard_buttons">
+                            <div>
+                                <img src="assets/img/menu/keyboard_icons/arrow_left.png" alt="arrow left">
+                                <img src="assets/img/menu/keyboard_icons/arrow_right.png" alt="arrow right">
+                            </div>
+                            <p>laufen</p>
+                        </div>
+                        <div class="keyboard_buttons">
+                            <div>
+                                <img src="assets/img/menu/keyboard_icons/arrow_up.png" alt="arrow up">
+                                <img src="assets/img/menu/keyboard_icons/keyboard_space.png" alt="keyboard space">
+                            </div>
+                            <p>springen</p>
+                        </div>
+                        <div class="keyboard_buttons">
+                            <div>
+                                <img src="assets/img/menu/keyboard_icons/keyboard_d.png" alt="keyboard d">
+                            </div>
+                            <p>Flaschen werfen</p>
+                        </div>
+                    </div>
+                    <div class="goal">
+                        <h3>Ziel</h3>
+                        <div class="goal_descript">
+                            <img src="assets/img/menu/chicken_boss 1.png" alt="chicken boss">
+                            <p>Besiege alle bösen Hühner und erreiche <br>das Ende!</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tipp">
+                    <h3>Tipp</h3>
+                    <div class="tipp_descript">
+                        <img src="assets/img/6_salsa_bottle/salsa_bottle.png" alt="salsa bottle">
+                        <p>heb dir ein paar Salsa Flaschen <br> für das Ende auf!</p>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+        <dialog closedby="any" class="imprint_dialog" id="imprint-dialog">
+            <div class="imprint_wrapper">
+                <button class="close_button" id="close-imprint"><img src="assets/img/menu/close_button.png"
+                        alt="close"></button>
+                <p>Angaben nach §5 DDG</p>
+                <p>
+                    Frank Preuß <br>
+                    Musterstraße 1<br>
+                    12345 Musterort
+                </p>
+            </div>
+        </dialog>
     </div>
 
 </body>

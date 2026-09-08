@@ -1,18 +1,21 @@
 body {
-    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     background-image: url(assets/img/5_background/background.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position-y: top;
     padding-top: 80px;
+    background-color: #C95F18;
 }
 
 section {
-    width: 725px;
-    height: 485px;
+    width: min(725px, calc(100vw - 40px), calc((100dvh - 60px) * 725 / 485));
+    height: auto;
+    aspect-ratio: 725 / 485;
     border: 2px solid rgb(25, 25, 25);
     border-radius: 16px;
     position: absolute;
@@ -20,6 +23,22 @@ section {
     align-items: center;
     justify-content: center;
 }
+
+.mute_btn {
+    width: clamp(30px, 5vw, 42px);
+    height: clamp(30px, 5vw, 42px);
+    padding: 6px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
 
 .start_screen {
     display: flex;
@@ -33,6 +52,7 @@ section {
         position: absolute;
         top: 15px;
         right: 15px;
+        padding: 0;
     }
 
     .headline {
@@ -49,7 +69,7 @@ section {
 
         button {
             width: 90%;
-            height: 48px;
+            height: clamp(36px, 6vw, 48px);
             border-radius: 8px;
             background-image: url(assets/img/menu/button_bg.png);
             background-size: contain;
@@ -61,7 +81,7 @@ section {
             cursor: pointer;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             font-weight: bold;
-            font-size: 24px;
+            font-size: clamp(12px, 3vw, 24px);
             color: #FDEDCB;
             -webkit-text-stroke: 1px black;
         }
@@ -81,12 +101,11 @@ section {
 
 
     .end_button_wrapper {
-        padding-bottom: 40px;
+        padding-bottom: clamp(15px, 5vw, 40px);
 
-        /* position: absolute; */
         button {
-            width: 160px;
-            height: 50px;
+            width: clamp(110px, 20vw, 160px);
+            height: clamp(36px, 6vw, 50px);
             background-image: url(assets/img/menu/button2_bg.png);
             background-size: contain;
             background-repeat: no-repeat;
@@ -97,7 +116,7 @@ section {
             cursor: pointer;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             font-weight: bold;
-            font-size: 24px;
+            font-size: clamp(12px, 3vw, 24px);
             color: #FDEDCB;
             -webkit-text-stroke: 1px black;
             text-align: center;
@@ -119,19 +138,19 @@ section {
     display: flex;
 }
 
-
-
 dialog {
     margin: auto;
-    padding-inline: 64px;
-    padding-top: 72px;
-    padding-bottom: 64px;
+    padding-inline: clamp(24px, 6vw, 64px);
+    padding-top: clamp(40px, 9vw, 72px);
+    padding-bottom: clamp(32px, 6vw, 64px);
+    transform: translateY(40px);
 }
 
 .howto_dialog {
-    width: 700px;
-    height: 450px;
-    background-image: url(assets/img/menu/howto_bg.png);
+    width: min(700px, calc(100vw - 40px), calc((100dvh - 60px) * 700 / 450));
+    height: auto;
+    aspect-ratio: 700 / 450;
+    background-image: url(assets/img/menu/howto_bg2.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 105% 100%;
@@ -145,21 +164,43 @@ dialog {
         flex-direction: column;
         align-items: center;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: clamp(10px, 1.8vw, 16px);
 
         img {
             filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.5));
         }
 
+        .close_button {
+            height: clamp(32px, 6vw, 48px);
+            width: clamp(32px, 6vw, 48px);
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            top: clamp(20px, 5vw, 40px);
+            right: clamp(12px, 3.5vw, 25px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                width: clamp(40px, 7vw, 56px);
+                height: clamp(40px, 7vw, 56px);
+            }
+        }
+
 
         .explanation {
             width: 100%;
-            padding: 16px;
+            padding-inline: clamp(6px, 2vw, 16px);
+            padding-top: clamp(8px, 2vw, 16px);
+            padding-bottom: clamp(6px, 2vw, 16px);
 
             p {
                 text-align: center;
                 font-family: Verdana, Geneva, Tahoma, sans-serif;
                 font-weight: bold;
-
+                font-size: clamp(10px, 2vw, 16px);
             }
         }
 
@@ -170,7 +211,8 @@ dialog {
             justify-content: space-evenly;
 
             h3 {
-                padding-bottom: 8px;
+                padding-bottom: clamp(3px, 1.5vw, 8px);
+                font-size: clamp(12px, 2.5vw, 20px);
             }
 
             .movement {
@@ -195,21 +237,20 @@ dialog {
                 align-items: center;
 
                 .goal_descript {
-                    padding-top: 8px;
+                    padding-top: clamp(3px, 1.5vw, 8px);
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    gap: 16px;
+                    gap: clamp(6px, 1.5vw, 16px);
 
                     img {
-                        /* width: 400px; */
-                        height: 100px;
+                        height: clamp(55px, 10vw, 100px);
                     }
                 }
             }
 
             img {
-                height: 32px;
+                height: clamp(22px, 3.5vw, 32px);
             }
         }
 
@@ -227,7 +268,7 @@ dialog {
                 align-items: center;
 
                 img {
-                    height: 70px;
+                    height: clamp(45px, 7vw, 70px);
                     transform: rotate(35deg);
                 }
 
@@ -237,8 +278,9 @@ dialog {
 }
 
 .imprint_dialog {
-    width: 700px;
-    height: 450px;
+    width: min(700px, calc(100vw - 40px), calc((100dvh - 60px) * 700 / 450));
+    height: auto;
+    aspect-ratio: 700 / 450;
     background-image: url(assets/img/menu/imprint_bg.png);
     background-repeat: no-repeat;
     background-position: center;
@@ -252,39 +294,232 @@ dialog {
         display: flex;
         flex-direction: column;
         gap: 16px;
+
+        .close_button {
+            height: clamp(32px, 6vw, 48px);
+            width: clamp(32px, 6vw, 48px);
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            top: clamp(20px, 5vw, 40px);
+            right: clamp(12px, 3.5vw, 25px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                width: clamp(40px, 7vw, 56px);
+                height: clamp(40px, 7vw, 56px);
+            }
+        }
     }
 }
 
-.mute_btn {
-    width: 50px;
-    height: 50px;
-    padding: 6px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-}
 
 .game_wrapper {
     position: relative;
-    width: 725px;
-    height: 485px;
+    width: min(725px, calc(100vw - 40px), calc((100dvh - 60px) * 725 / 485));
+    height: auto;
+    aspect-ratio: 725 / 485;
     z-index: 0;
 
     .mute_btn {
         position: absolute;
         top: 15px;
         right: 15px;
+        padding: 0;
     }
 }
 
+.mobile_controls {
+    display: none;
+}
+
 canvas {
-    /* background-color: black; */
+    width: 100%;
+    height: auto;
     border: 2px solid rgb(25, 25, 25);
     border-radius: 16px;
+}
+
+
+.rotate_device {
+    display: none;
+}
+
+@media (hover: none) and (orientation: landscape) {
+    dialog {
+        transform: none;
+        padding-inline: 9vh;
+        padding-top: 17vh;
+        padding-bottom: 8vh;
+    }
+
+    body {
+        padding-top: 0;
+    }
+
+    .howto_dialog {
+        .howto_wrapper {
+            font-size: 3vh;
+
+            .explanation {
+                padding: 2vh;
+
+                p {
+                    font-size: 3vh;
+                }
+            }
+
+            .actions {
+                h3 {
+                    font-size: 4vh;
+                    padding-bottom: 1vh;
+                }
+
+                .goal {
+                    .goal_descript {
+                        gap: 2vh;
+
+                        img {
+                            height: 15vh;
+                        }
+                    }
+                }
+
+                img {
+                    height: 6vh;
+                }
+            }
+
+            .tipp {
+                height: 35%;
+
+                .tipp_descript {
+                    img {
+                        height: 11vh;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (hover: none) and (orientation: portrait) {
+
+    body {
+        padding-top: 0;
+    }
+
+    .game_wrapper,
+    .start_screen,
+    .endscreen {
+        display: none;
+    }
+
+    .rotate_device {
+        height: 100dvh;
+        width: 100%;
+        display: flex;
+        background-image: url(assets/img/menu/rotate_device_bg.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: bold;
+        font-size: clamp(12px, 4vw, 32px);
+    }
+}
+
+@media (hover: none) {
+    .mobile_controls {
+        display: flex;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: clamp(8px, 3vw, 20px);
+        justify-content: space-between;
+        padding-inline: 24px;
+
+        button {
+            width: clamp(30px, 7vw, 55px);
+            height: clamp(30px, 7vw, 55px);
+            padding: 0;
+            background-color: transparent;
+            border: none;
+            touch-action: none;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .movement_controls,
+        .action_controls {
+            display: flex;
+            gap: 12px;
+        }
+    }
+
+    .mute_btn {
+        touch-action: none;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 450px) {
+    .howto_dialog {
+        .howto_wrapper {
+            font-size: clamp(8px, 2vw, 10px);
+
+            .explanation {
+                padding: clamp(2px, 1vw, 4px);
+
+                p {
+                    font-size: clamp(8px, 2vw, 10px);
+                }
+            }
+
+            .actions {
+                h3 {
+                    font-size: clamp(8px, 2.8vw, 13px);
+                    padding-bottom: clamp(2px, 0.8vw, 3px);
+                }
+
+                .goal {
+                    .goal_descript {
+                        gap: clamp(3px, 1.2vw, 5px);
+
+                        img {
+                            height: clamp(40px, 11vw, 50px);
+                        }
+                    }
+                }
+
+                img {
+                    height: clamp(16px, 4.5vw, 20px);
+                }
+            }
+
+            .tipp {
+                height: 35%;
+
+                .tipp_descript {
+                    img {
+                        height: clamp(30px, 9vw, 40px);
+                    }
+                }
+            }
+        }
+    }
+
+    .imprint_dialog {
+        .imprint_wrapper {
+            padding: clamp(8px, 2vw, 20px);
+        }
+    }
 }
