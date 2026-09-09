@@ -8,12 +8,11 @@ export class Character extends MovableObject {
     width = 150;
     speed = 10;
     world;
-    coins = 0;          // eventuell in andere class verschieben
+    coins = 0;
     coinsMax = 10;
     bottle = 0;
     bottleMax = 10;
     lastThrow = 0;
-    showFrame = true; // nur für die Hitboxen später entfernen
     offset = {
         top: 120,
         right: 50,
@@ -24,7 +23,6 @@ export class Character extends MovableObject {
     lastHitSound = 0;
     lastJumpSound = 0;
     dyingSoundPlayed = false;
-
 
     constructor() {
         super().loadImage(ImageHub.charakter.idle[1]);
@@ -37,7 +35,6 @@ export class Character extends MovableObject {
         this.applyGravity();
         this.animate();
         this.getHitBox();
-
     }
 
     animate() {
@@ -69,7 +66,6 @@ export class Character extends MovableObject {
             } else if (this.isAboveGround()) {
                 this.playAnimation(ImageHub.charakter.jump);
             } else if (this.world.keyboard.right || this.world.keyboard.left) {
-                AudioHub.playLoop(AudioHub.CHAR_RUN);
                 this.playAnimation(ImageHub.charakter.walk);
             } else if (this.idle()) {
                 this.playAnimation(ImageHub.charakter.long_idle);
@@ -91,39 +87,57 @@ export class Character extends MovableObject {
 
     checkDamageSound() {
         if (this.isDead()) {
-            AudioHub.stopLoop(AudioHub.CHAR_RUN);
-            AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
-            if (!this.dyingSoundPlayed) {
-                AudioHub.playOne(AudioHub.CHAR_DYING);
-                this.dyingSoundPlayed = true;
-            }
+            this.handleDeathSound();
         } else if (this.isHurt()) {
-            AudioHub.stopLoop(AudioHub.CHAR_RUN);
-            AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
-            if (this.lastHitSound != this.lastHit) {
-                AudioHub.playOne(AudioHub.CHAR_DAMAGE);
-                this.lastHitSound = this.lastHit;
-            }
+            this.handleDamageSound();
+        }
+    }
+
+    handleDeathSound() {
+        AudioHub.stopLoop(AudioHub.CHAR_RUN);
+        AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
+        if (!this.dyingSoundPlayed) {
+            AudioHub.playOne(AudioHub.CHAR_DYING);
+            this.dyingSoundPlayed = true;
+        }
+    }
+
+    handleDamageSound() {
+        AudioHub.stopLoop(AudioHub.CHAR_RUN);
+        AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
+        if (this.lastHitSound != this.lastHit) {
+            AudioHub.playOne(AudioHub.CHAR_DAMAGE);
+            this.lastHitSound = this.lastHit;
         }
     }
 
     checkMovementSound() {
         if (this.isDead() || this.isHurt()) {
-            AudioHub.stopLoop(AudioHub.CHAR_RUN);
-            AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
+            this.stopCharacterSounds();
         } else if (this.isAboveGround()) {
-            AudioHub.stopLoop(AudioHub.CHAR_RUN);
-            AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
+            this.stopCharacterSounds();
         } else if (this.world.keyboard.right || this.world.keyboard.left) {
-            AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
-            AudioHub.playLoop(AudioHub.CHAR_RUN);
+            this.playRunSound();
         } else if (this.idle()) {
-            AudioHub.stopLoop(AudioHub.CHAR_RUN);
-            AudioHub.playLoop(AudioHub.CHAR_SLEEP);
+            this.playSleepSound();
         } else {
-            AudioHub.stopLoop(AudioHub.CHAR_RUN);
-            AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
+            this.stopCharacterSounds();
         }
+    }
+
+    playRunSound() {
+        AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
+        AudioHub.playLoop(AudioHub.CHAR_RUN);
+    }
+
+    playSleepSound() {
+        AudioHub.stopLoop(AudioHub.CHAR_RUN);
+        AudioHub.playLoop(AudioHub.CHAR_SLEEP);
+    }
+
+    stopCharacterSounds() {
+        AudioHub.stopLoop(AudioHub.CHAR_RUN);
+        AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
     }
 
     idle() {
@@ -141,19 +155,17 @@ export class Character extends MovableObject {
         AudioHub.playOne(AudioHub.CHAR_JUMP);
     }
 
-    collectibleCounter(item) { // eventuell in eine andere class verschieben
+    collectibleCounter(item) {
         if (item.type == "coin") {
             this.coins += 1;
-            if (this.coins > 10) {  // für den max. Wert der Coins
+            if (this.coins > 10) {
                 this.coins = 10;
             }
         } else if (item.type == "bottle") {
             this.bottle += 1;
-            if (this.bottle > 10) {  // für den max. Wert der Coins
+            if (this.bottle > 10) {
                 this.bottle = 10;
             }
         }
     }
-
-
 }

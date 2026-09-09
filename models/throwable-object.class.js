@@ -5,14 +5,12 @@ export class ThrowableObject extends MovableObject {
     throwable = true;
     hasHit = false;
     hitTime = 0;
-    showFrame = true; // nur für die Hitboxen später entfernen
     offset = {
         top: 7,
         right: 7,
         bottom: 7,
         left: 7
     };
-
 
     constructor(x, y, otherDirection) {
         super().loadImage(ImageHub.bottle.normal);
@@ -43,7 +41,6 @@ export class ThrowableObject extends MovableObject {
             }
         }, 25)
     }
-
 
     bottleHit() {
         if (!this.hasHit) {

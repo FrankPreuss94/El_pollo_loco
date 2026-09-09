@@ -1,7 +1,7 @@
 import { DrawableObject } from "./drawable-objects.class.js";
 
 export class MovableObject extends DrawableObject {
-    speed; // muss hier nicht definiert werden, nur deklarieren
+    speed;
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
@@ -65,7 +65,6 @@ export class MovableObject extends DrawableObject {
     }
 
     jump() {
-        this.speedY = 27.5; // erhöht die Sprunghöhe
+        this.speedY = 27.5;
     }
-
 }

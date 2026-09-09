@@ -10,13 +10,9 @@ export class SmallChicken extends Chicken {
         super().loadImage(ImageHub.smallChicken.walk[0]);
         this.loadImages(ImageHub.smallChicken.walk);
         this.loadImages(ImageHub.smallChicken.dead);
-
         this.speed = 0.15 + Math.random() * 0.25; // speed anpassen?? 
-
-        this.animate();
         this.getHitBox();
     }
-
 
     animate() {
         setInterval(() => {

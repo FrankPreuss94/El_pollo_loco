@@ -42,7 +42,6 @@ section {
 
 .start_screen {
     display: flex;
-
     background-image: url(assets/img/menu/startscreen_bg.png);
     background-repeat: no-repeat;
     background-size: cover;
@@ -98,7 +97,6 @@ section {
     display: none;
     justify-content: flex-end;
     z-index: 1;
-
 
     .end_button_wrapper {
         padding-bottom: clamp(15px, 5vw, 40px);
@@ -271,7 +269,6 @@ dialog {
                     height: clamp(45px, 7vw, 70px);
                     transform: rotate(35deg);
                 }
-
             }
         }
     }
@@ -337,6 +334,7 @@ dialog {
 }
 
 canvas {
+    display: none;
     width: 100%;
     height: auto;
     border: 2px solid rgb(25, 25, 25);

@@ -7,7 +7,6 @@ export class Cloud extends MovableObject {
 
     constructor(imagepath) {
         super().loadImage(imagepath);
-
         this.x = Math.random() * 5000;
         this.animate();
     }
@@ -15,7 +14,4 @@ export class Cloud extends MovableObject {
     animate() {
         this.moveLeft();
     }
-
-
-
 }

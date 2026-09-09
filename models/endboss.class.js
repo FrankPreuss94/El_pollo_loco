@@ -4,14 +4,11 @@ import { AudioHub } from "./audiohub.class.js";
 
 export class Endboss extends MovableObject {
 
-    height = 400; // 1:1.165
+    height = 400;
     width = 345;
     speed = 5;
-    x = 5300;  // Startpos bei 5300
+    x = 5300;
     y = 55;
-    // hp = 50;
-    // hpMax = 50;
-    showFrame = true; // nur für die Hitboxen später entfernen
     offset = {
         top: 100,
         right: 50,
@@ -23,7 +20,6 @@ export class Endboss extends MovableObject {
     isAttacking = false;
     bossSoundPlayed = false;
     bossDeathSoundPlayed = false;
-
 
     constructor() {
         super().loadImage(ImageHub.endboss.alert[0]);
@@ -76,7 +72,6 @@ export class Endboss extends MovableObject {
             AudioHub.playOne(AudioHub.ENDBOSS_ANGRY);
             this.bossSoundPlayed = true;
         }
-
         this.isMoving = false;
         setTimeout(() => {
             this.isMoving = true;
@@ -86,7 +81,6 @@ export class Endboss extends MovableObject {
             }, 1000);
         }, 2000);
     }
-
 
     attack() {
         if (!this.isDead()) {

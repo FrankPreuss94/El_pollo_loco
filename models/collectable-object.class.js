@@ -4,8 +4,18 @@ import { ImageHub } from "./image-hub.class.js";
 export class CollectableObject extends DrawableObject {
     type;
     path;
-    showFrame = true; // nur für die Hitboxen > später entfernen
-
+    coinOffset = {
+        top: 55,
+        right: 55,
+        bottom: 55,
+        left: 55
+    };
+    bottleOffset = {
+        top: 15,
+        right: 17,
+        bottom: 10,
+        left: 35
+    };
 
     constructor(x, y, type) {
         super()
@@ -30,23 +40,11 @@ export class CollectableObject extends DrawableObject {
         if (type == "coin") {
             this.height = 150;
             this.width = 150;
-            this.offset = {
-                top: 55,
-                right: 55,
-                bottom: 55,
-                left: 55
-            };
+            this.offset = this.coinOffset;
         } else if (type == "bottle") {
             this.height = 80;
             this.width = 80;
-            this.offset = {
-                top: 15,
-                right: 17,
-                bottom: 10,
-                left: 35
-            };
+            this.offset = this.bottleOffset
         }
     }
-
-
 }

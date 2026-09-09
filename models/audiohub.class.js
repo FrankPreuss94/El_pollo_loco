@@ -8,7 +8,6 @@ class MyAudio {
         this.volume = _volume;
         this.file.volume = _volume;
         this.file.preload = "auto";
-
         this.file.addEventListener("canplaythrough", () => {
             this.isLoaded = true;
         });
@@ -66,8 +65,7 @@ export class AudioHub {
 
     static playOne(sound) {
         sound.file.currentTime = 0;
-
-        if (sound.file.readyState === 4 || sound.isLoaded) {
+        if (sound.file.readyState > 0 || sound.isLoaded) {
             sound.isLoaded = true;
             sound.file.play();
         }
@@ -118,5 +116,4 @@ export class AudioHub {
             });
         }
     }
-
 }

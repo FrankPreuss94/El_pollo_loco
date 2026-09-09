@@ -7,7 +7,6 @@ export class Chicken extends MovableObject {
     height = 57;
     width = 65;
     hp = 5;
-    showFrame = true; // nur für die Hitboxen später entfernen
     offset = {
         top: 6,
         right: 5,
@@ -20,10 +19,8 @@ export class Chicken extends MovableObject {
         super().loadImage(ImageHub.chicken.walk[0]);
         this.loadImages(ImageHub.chicken.walk);
         this.loadImages(ImageHub.chicken.dead);
-
         this.x = 700 + Math.random() * 4500;
         this.speed = 0.15 + Math.random() * 0.25;
-
         this.animate();
         this.getHitBox();
     }
@@ -51,13 +48,9 @@ export class Chicken extends MovableObject {
                 AudioHub.CHICKEN_DEAD,
                 AudioHub.CHICKEN_DEAD2
             ];
-
             const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
             AudioHub.playOne(randomSound);
-
             this.deathSoundPlayed = true;
         }
     }
-
-
 }

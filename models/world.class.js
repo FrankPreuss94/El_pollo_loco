@@ -16,7 +16,7 @@ export class World {
     camera_x = 0;
     healthBar = new StatusBar(ImageHub.stausbars.health_blue, 30, 0, 100, this.character.hpMax);
     coinsBar = new StatusBar(ImageHub.stausbars.coins_blue, 30, 50, 0, this.character.coinsMax);
-    bottleBar = new StatusBar(ImageHub.stausbars.bottle_blue, 30, 100, 0); //hier max bottles anpassen
+    bottleBar = new StatusBar(ImageHub.stausbars.bottle_blue, 30, 100, 0, this.character.bottleMax);
     bossBar;
     throwableObjects = [];
     bossSpawned = false;
@@ -26,7 +26,7 @@ export class World {
     constructor(canvas, keyboard, showEndScreen) {
         this.level = createLevel1();
         this.endboss = this.level.enemies[0];
-        this.bossBar = new StatusBar(ImageHub.stausbars.boss_blue, 480, -50, 100, this.endboss.hpMax);
+        this.bossBar = new StatusBar(ImageHub.stausbars.boss_blue, 420, -50, 100, this.endboss.hpMax);
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -57,7 +57,6 @@ export class World {
     bossSpawn() {
         if (this.character.x > 4600 && !this.bossSpawned && this.bossBar.y < 8) {
             this.bossSpawned = true;
-            console.log("hello there");
             this.bossBar.y = 8;
             this.endboss.bossBehavior();
         }
@@ -103,7 +102,7 @@ export class World {
     throwCooldown() {
         let timePassed = new Date().getTime() - this.character.lastThrow;
         timePassed = timePassed / 1000
-        return timePassed > 0.25;
+        return timePassed > 0.4;
     }
 
     checkCollisions() {
@@ -148,7 +147,7 @@ export class World {
     beatChicken() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && this.character.speedY < 0 &&
-                this.character.rY + this.character.rH < enemy.rY + enemy.rH / 2 &&
+                this.character.rY + this.character.rH < enemy.rY + enemy.rH / 2 + 20 &&
                 !enemy.isDead() && !enemy.boss) {
                 enemy.hit(5);
                 this.character.speedY = 15;
@@ -163,13 +162,12 @@ export class World {
         this.addObjectToMap(this.level.backgroundObjects);
         this.addObjectToMap(this.level.clouds);
 
-        this.ctx.translate(-this.camera_x, 0); // back
-        // ------ space for fixed objects ------
+        this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.healthBar);
         this.addToMap(this.coinsBar);
         this.addToMap(this.bottleBar);
         this.addToMap(this.bossBar);
-        this.ctx.translate(this.camera_x, 0); // forwards
+        this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);
         this.addObjectToMap(this.level.enemies);
@@ -178,7 +176,6 @@ export class World {
 
         this.ctx.translate(-this.camera_x, 0);
 
-        // Draw wird immer wieder aufgerufen
         requestAnimationFrame(() => this.draw());
     }
 
@@ -192,13 +189,10 @@ export class World {
         if (mo.otherDirection) {
             this.flipImage(mo);
         }
-
         mo.draw(this.ctx);
-        // mo.drawFrame(this.ctx); // zur Visualisierung > später entfernen
         if (mo.drawHitBox) {
             mo.drawHitBox(this.ctx);
         }
-
         if (mo.otherDirection) {
             this.flickImageBack(mo);
         }
@@ -218,14 +212,12 @@ export class World {
 
     checkGameOver() {
         if (this.gameOverTriggered) return;
-
         if (this.character.isDead()) {
             this.gameOverTriggered = true;
             setTimeout(() => {
                 this.showEndScreen("endscreen_lost");
             }, 1500);
         }
-
         if (this.endboss.isDead()) {
             this.gameOverTriggered = true;
             setTimeout(() => {
@@ -237,7 +229,6 @@ export class World {
     stopGame() {
         this.gameRunning = false;
     }
-
 }
 
 

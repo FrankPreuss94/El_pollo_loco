@@ -6,7 +6,6 @@ export class StatusBar extends DrawableObject {
     percentage = 100;
     ImageHubPath;
 
-
     constructor(_imageHubPath, x, y, currentValue, maxValue) {
         super();
         this.loadImages(_imageHubPath);

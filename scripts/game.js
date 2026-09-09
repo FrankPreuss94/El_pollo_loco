@@ -21,6 +21,7 @@ const leftBtnRef = document.getElementById("left-btn");
 const rightBtnRef = document.getElementById("right-btn");
 const jumpBtnRef = document.getElementById("jump-btn");
 const throwBtnRef = document.getElementById("throw-btn");
+const canvasRef = document.getElementById("canvas");
 
 let canvas;
 let world;
@@ -31,6 +32,7 @@ AudioHub.loadMuteState();
 updateMuteIcons();
 
 function init() {
+    canvasRef.style.display = "block";
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard, showEndScreen);
     worlds.push(world);
@@ -39,47 +41,39 @@ function init() {
     AudioHub.playLoop(AudioHub.GAME_BACKGROUND);
 }
 
-window.addEventListener("keydown", (event) => {
-    if (event.keyCode == 32) {
-        keyboard.space = true;
-    }
+function handleMovementKey(event, pressed) {
     if (event.keyCode == 37) {
-        keyboard.left = true;
-    }
-    if (event.keyCode == 38) {
-        keyboard.up = true;
+        keyboard.left = pressed;
     }
     if (event.keyCode == 39) {
-        keyboard.right = true;
+        keyboard.right = pressed;
     }
-    if (event.keyCode == 40) {
-        keyboard.down = true;
+}
+
+function handleActionKey(event, pressed) {
+    if (event.keyCode == 32) {
+        keyboard.space = pressed;
+    }
+    if (event.keyCode == 38) {
+        keyboard.up = pressed;
     }
     if (event.keyCode == 68) {
-        keyboard.d = true;
+        keyboard.d = pressed;
     }
-})
+}
+
+function handleKey(event, pressed) {
+    handleMovementKey(event, pressed);
+    handleActionKey(event, pressed);
+}
+
+window.addEventListener("keydown", (event) => {
+    handleKey(event, true);
+});
 
 window.addEventListener("keyup", (event) => {
-    if (event.keyCode == 32) {
-        keyboard.space = false;
-    }
-    if (event.keyCode == 37) {
-        keyboard.left = false;
-    }
-    if (event.keyCode == 38) {
-        keyboard.up = false;
-    }
-    if (event.keyCode == 39) {
-        keyboard.right = false;
-    }
-    if (event.keyCode == 40) {
-        keyboard.down = false;
-    }
-    if (event.keyCode == 68) {
-        keyboard.d = false;
-    }
-})
+    handleKey(event, false);
+});
 
 function addLeftControl() {
     leftBtnRef.addEventListener("touchstart", (event) => {
@@ -177,6 +171,7 @@ function showEndScreen(result) {
 function backHome() {
     world.stopGame();
     AudioHub.stopAll();
+    canvasRef.style.display = "none";
     endScreenRef.classList.remove("endscreen_won", "endscreen_lost");
     startScreenRef.style.display = "flex";
 }
@@ -209,5 +204,3 @@ backHomeRef.addEventListener("click", backHome);
 startMuteBtnRef.addEventListener("click", toggleMute);
 
 gameMuteBtnRef.addEventListener("click", toggleMute);
-
-// window.addEventListener('load', init)
