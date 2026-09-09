@@ -1,4 +1,11 @@
+/**
+ * Provides centralized paths for all game images and animations.
+ * @class
+ */
 export class ImageHub {
+    /**
+     * Images and animations for the player character.
+     */
     static charakter = {
         idle: [
             "assets/img/2_character_pepe/1_idle/idle/I-1.png",
@@ -59,6 +66,9 @@ export class ImageHub {
         ]
     }
 
+    /**
+     * Images for the normal chicken enemy.
+     */
     static chicken = {
         walk: [
             "assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
@@ -70,6 +80,9 @@ export class ImageHub {
         ]
     }
 
+    /**
+     * Images for the small chicken enemy.
+     */
     static smallChicken = {
         walk: [
             "assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
@@ -81,6 +94,9 @@ export class ImageHub {
         ]
     }
 
+    /**
+     * Images and animations for the end boss.
+     */
     static endboss = {
         walk: [
             "assets/img/4_enemie_boss_chicken/1_walk/G1.png",
@@ -120,6 +136,9 @@ export class ImageHub {
         ]
     }
 
+    /**
+     * Images for the game's status bars.
+     */
     static stausbars = {
         health_blue: [
             "assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png",
@@ -155,6 +174,9 @@ export class ImageHub {
         ]
     }
 
+    /**
+     * Images and animations for throwable bottles.
+     */
     static bottle = {
         normal: [
             "assets/img/6_salsa_bottle/salsa_bottle.png"
@@ -179,6 +201,9 @@ export class ImageHub {
         ]
     }
 
+    /**
+     * Images for collectible coins.
+     */
     static coin = {
         small: "assets/img/8_coin/coin_1.png",
         big: "assets/img/8_coin/coin_2.png"

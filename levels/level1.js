@@ -6,6 +6,10 @@ import { CollectableObject } from "../models/collectable-object.class.js";
 import { Endboss } from "../models/endboss.class.js";
 import { Level } from "../models/level.class.js";
 
+/**
+ * Creates and returns the first game level.
+ * @returns {Level} The configured first game level.
+ */
 export function createLevel1() {
     return new Level(
         [

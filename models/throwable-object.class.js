@@ -1,6 +1,10 @@
 import { ImageHub } from "./image-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
 
+/**
+ * Represents a throwable bottle object.
+ * @class
+ */
 export class ThrowableObject extends MovableObject {
     throwable = true;
     hasHit = false;
@@ -12,6 +16,12 @@ export class ThrowableObject extends MovableObject {
         left: 7
     };
 
+    /**
+     * Creates a new throwable bottle.
+     * @param {number} x - Initial horizontal position.
+     * @param {number} y - Initial vertical position.
+     * @param {boolean} otherDirection - Determines the throwing direction.
+     */
     constructor(x, y, otherDirection) {
         super().loadImage(ImageHub.bottle.normal);
         this.loadImages(ImageHub.bottle.rotation);
@@ -25,6 +35,9 @@ export class ThrowableObject extends MovableObject {
         this.getHitBox();
     }
 
+    /**
+    * Starts the bottle's movement and rotation animation.
+    */
     throw() {
         this.speedY = 30;
         this.applyGravity();
@@ -42,6 +55,9 @@ export class ThrowableObject extends MovableObject {
         }, 25)
     }
 
+    /**
+     * Marks the bottle as hit and starts the splash animation.
+     */
     bottleHit() {
         if (!this.hasHit) {
             this.hasHit = true;
@@ -50,6 +66,10 @@ export class ThrowableObject extends MovableObject {
         }
     }
 
+    /**
+    * Checks whether the bottle splash animation has finished.
+    * @returns {boolean} True if the splash animation has finished.
+    */
     splashFinished() {
         let timePassed = new Date().getTime() - this.hitTime;
         timePassed = timePassed / 1000;

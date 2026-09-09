@@ -187,7 +187,6 @@ dialog {
             }
         }
 
-
         .explanation {
             width: 100%;
             padding-inline: clamp(6px, 2vw, 16px);

@@ -1,6 +1,10 @@
 import { DrawableObject } from "./drawable-objects.class.js";
 import { ImageHub } from "./image-hub.class.js";
 
+/**
+ * Represents a collectible game object such as a coin or bottle.
+ * @class
+ */
 export class CollectableObject extends DrawableObject {
     type;
     path;
@@ -17,6 +21,12 @@ export class CollectableObject extends DrawableObject {
         left: 35
     };
 
+    /**
+     * Creates a new collectible object.
+     * @param {number} x - Initial horizontal position.
+     * @param {number} y - Initial vertical position.
+     * @param {string} type - Type of collectible.
+     */
     constructor(x, y, type) {
         super()
         this.type = type;
@@ -28,6 +38,10 @@ export class CollectableObject extends DrawableObject {
         this.getHitBox();
     }
 
+    /**
+     * Sets the image path based on the collectible type.
+     * @param {string} type - Type of collectible.
+     */
     checkType(type) {
         if (type == "coin") {
             this.path = ImageHub.coin.small;
@@ -36,6 +50,10 @@ export class CollectableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Sets the size and collision offset based on the collectible type.
+     * @param {string} type - Type of collectible.
+     */
     setSize(type) {
         if (type == "coin") {
             this.height = 150;

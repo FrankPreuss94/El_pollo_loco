@@ -1,5 +1,9 @@
 import { DrawableObject } from "./drawable-objects.class.js";
 
+/**
+ * Base class for movable game objects.
+ * @class
+ */
 export class MovableObject extends DrawableObject {
     speed;
     otherDirection = false;
@@ -11,6 +15,9 @@ export class MovableObject extends DrawableObject {
     lastHit = 0;
     throwable = false;
 
+    /**
+   * Applies gravity to the object.
+   */
     applyGravity() {
         setInterval(() => {
             if (!this.hasHit && (this.isAboveGround() || this.speedY > 0)) {
@@ -20,6 +27,10 @@ export class MovableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
+    /**
+    * Checks if the object is above the ground.
+    * @returns {boolean} True if the object is above the ground.
+    */
     isAboveGround() {
         if (this.throwable) {
             return this.y < 350;
@@ -30,6 +41,10 @@ export class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Reduces the object's health by the given damage.
+     * @param {number} damage - Amount of damage.
+     */
     hit(damage) {
         this.hp -= damage;
         if (this.hp < 0) {
@@ -39,16 +54,28 @@ export class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Checks if the object is currently hurt.
+     * @returns {boolean} True if the object is hurt.
+     */
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit;
         timePassed = timePassed / 1000;
-        return timePassed < 0.5; // länge der hurt-animation
+        return timePassed < 0.5;
     }
 
+    /**
+     * Checks if the object's health has reached zero.
+     * @returns {boolean} True if the object is dead.
+     */
     isDead() {
         return this.hp == 0;
     }
 
+    /**
+     * Changes the current animation frame.
+     * @param {string[]} images - Array of image paths for the animation.
+     */
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
@@ -56,14 +83,23 @@ export class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
+    /**
+     * Moves the object to the right.
+     */
     moveRight() {
         this.x += this.speed;
     }
 
+    /**
+     * Moves the object to the left.
+     */
     moveLeft() {
         this.x -= this.speed;
     }
 
+    /**
+    * Makes the object jump.
+    */
     jump() {
         this.speedY = 27.5;
     }

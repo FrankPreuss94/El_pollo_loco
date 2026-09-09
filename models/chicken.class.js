@@ -2,6 +2,10 @@ import { ImageHub } from "./image-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
 import { AudioHub } from "./audiohub.class.js";
 
+/**
+ * Represents a chicken enemy.
+ * @class
+ */
 export class Chicken extends MovableObject {
     y = 360;
     height = 57;
@@ -15,6 +19,9 @@ export class Chicken extends MovableObject {
     };
     deathSoundPlayed = false;
 
+    /**
+    * Creates a new chicken enemy.
+    */
     constructor() {
         super().loadImage(ImageHub.chicken.walk[0]);
         this.loadImages(ImageHub.chicken.walk);
@@ -25,7 +32,9 @@ export class Chicken extends MovableObject {
         this.getHitBox();
     }
 
-
+    /**
+         * Handles the chicken's movement and animation.
+         */
     animate() {
         setInterval(() => {
             this.moveLeft();
@@ -42,6 +51,9 @@ export class Chicken extends MovableObject {
         }, 150);
     }
 
+    /**
+     * Plays a random death sound for the chicken.
+     */
     playDeathSound() {
         if (!this.deathSoundPlayed) {
             const sounds = [

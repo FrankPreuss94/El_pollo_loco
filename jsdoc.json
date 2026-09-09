@@ -1,0 +1,12 @@
+{
+    "source": {
+        "include": [
+            "./models",
+            "./levels",
+            "./scripts"
+        ]
+    },
+    "opts": {
+        "destination": "./out"
+    }
+}

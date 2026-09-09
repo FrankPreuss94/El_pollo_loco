@@ -2,6 +2,10 @@ import { AudioHub } from "./audiohub.class.js";
 import { ImageHub } from "./image-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
 
+/**
+ * Represents the player character.
+ * @class
+ */
 export class Character extends MovableObject {
     y = 140;
     height = 295;
@@ -24,6 +28,9 @@ export class Character extends MovableObject {
     lastJumpSound = 0;
     dyingSoundPlayed = false;
 
+    /**
+    * Creates a new player character.
+    */
     constructor() {
         super().loadImage(ImageHub.charakter.idle[1]);
         this.loadImages(ImageHub.charakter.walk);
@@ -37,6 +44,9 @@ export class Character extends MovableObject {
         this.getHitBox();
     }
 
+    /**
+    * Handles character movement, animation and camera position.
+    */
     animate() {
         this.movementInterval = setInterval(() => {
             if (this.world.keyboard.right && this.x < this.world.level.level_end_x && !this.isDead()) {
@@ -75,16 +85,25 @@ export class Character extends MovableObject {
         }, 100);
     }
 
+    /**
+     * Stops the character's movement and animation intervals.
+     */
     stopIntervals() {
         clearInterval(this.movementInterval);
         clearInterval(this.animationInterval);
     }
 
+    /**
+     * Checks and plays sounds based on the character's current state.
+     */
     checkCharacterSound() {
         this.checkDamageSound();
         this.checkMovementSound();
     }
 
+    /**
+     * Checks whether the character is dead or hurt and handles the corresponding sound.
+     */
     checkDamageSound() {
         if (this.isDead()) {
             this.handleDeathSound();
@@ -93,6 +112,9 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * Handles the character's death sound.
+     */
     handleDeathSound() {
         AudioHub.stopLoop(AudioHub.CHAR_RUN);
         AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
@@ -102,6 +124,9 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * Handles the character's damage sound.
+     */
     handleDamageSound() {
         AudioHub.stopLoop(AudioHub.CHAR_RUN);
         AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
@@ -111,6 +136,9 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * Checks and plays movement-related sounds.
+     */
     checkMovementSound() {
         if (this.isDead() || this.isHurt()) {
             this.stopCharacterSounds();
@@ -125,36 +153,59 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * Plays the character's running sound.
+     */
     playRunSound() {
         AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
         AudioHub.playLoop(AudioHub.CHAR_RUN);
     }
 
+    /**
+     * Plays the character's sleeping sound.
+     */
     playSleepSound() {
         AudioHub.stopLoop(AudioHub.CHAR_RUN);
         AudioHub.playLoop(AudioHub.CHAR_SLEEP);
     }
 
+    /**
+     * Stops the character's movement sounds.
+     */
     stopCharacterSounds() {
         AudioHub.stopLoop(AudioHub.CHAR_RUN);
         AudioHub.stopLoop(AudioHub.CHAR_SLEEP);
     }
 
+    /**
+     * Checks if the character has been idle for more than eight seconds.
+     * @returns {boolean} True if the character is idle.
+     */
     idle() {
         let timePassed = new Date().getTime() - this.idleTimer;
         timePassed = timePassed / 1000;
         return timePassed > 8;
     }
 
+    /**
+     * Resets the character's idle timer.
+     */
     resetIdleTimer() {
         this.idleTimer = new Date().getTime();
     }
 
+    /**
+     * Makes the character jump and plays the jump sound.
+     */
     jump() {
         this.speedY = 27.5;
         AudioHub.playOne(AudioHub.CHAR_JUMP);
     }
 
+    /**
+     * Increases the character's coin or bottle count.
+     * @param {CollectableObject} item - Collectible item to add.
+     */
     collectibleCounter(item) {
         if (item.type == "coin") {
             this.coins += 1;

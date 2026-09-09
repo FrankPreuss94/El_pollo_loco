@@ -2,6 +2,10 @@ import { ImageHub } from "./image-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
 import { AudioHub } from "./audiohub.class.js";
 
+/**
+ * Represents the end boss enemy.
+ * @class
+ */
 export class Endboss extends MovableObject {
 
     height = 400;
@@ -21,6 +25,9 @@ export class Endboss extends MovableObject {
     bossSoundPlayed = false;
     bossDeathSoundPlayed = false;
 
+    /**
+     * Creates a new end boss.
+     */
     constructor() {
         super().loadImage(ImageHub.endboss.alert[0]);
         this.loadImages(ImageHub.endboss.alert);
@@ -34,6 +41,9 @@ export class Endboss extends MovableObject {
         this.getHitBox();
     }
 
+    /**
+     * Handles the end boss animation based on its current state.
+     */
     animate() {
         setInterval(() => {
             if (this.isDead()) {
@@ -51,6 +61,9 @@ export class Endboss extends MovableObject {
         }, 200);
     }
 
+    /**
+     * Plays the end boss death sound once.
+     */
     playDeathSound() {
         if (!this.bossDeathSoundPlayed) {
             AudioHub.stopOne(AudioHub.ENDBOSS_ANGRY);
@@ -59,6 +72,9 @@ export class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Moves the end boss while it is active and alive.
+     */
     move() {
         setInterval(() => {
             if (this.isMoving && !this.isDead()) {
@@ -67,6 +83,9 @@ export class Endboss extends MovableObject {
         }, 1000 / 60);
     }
 
+    /**
+     * Controls the end boss movement and attack behavior.
+     */
     bossBehavior() {
         if (!this.bossSoundPlayed) {
             AudioHub.playOne(AudioHub.ENDBOSS_ANGRY);
@@ -82,6 +101,9 @@ export class Endboss extends MovableObject {
         }, 2000);
     }
 
+    /**
+     * Starts the end boss attack.
+     */
     attack() {
         if (!this.isDead()) {
             this.isAttacking = true;

@@ -1,8 +1,17 @@
+/**
+ * Represents an audio file with its playback settings and state.
+ * @class
+ */
 class MyAudio {
     file;
     isLoaded = false;
     isPlaying = false;
 
+    /**
+     * Creates a new audio object.
+     * @param {string} _file - Path to the audio file.
+     * @param {number} _volume - Default volume of the audio.
+     */
     constructor(_file, _volume) {
         this.file = new Audio(_file);
         this.volume = _volume;
@@ -14,6 +23,10 @@ class MyAudio {
     }
 }
 
+/**
+ * Manages all game sounds and the mute state.
+ * @class
+ */
 export class AudioHub {
     static CHAR_DAMAGE = new MyAudio("assets/audio/character/characterDamage.mp3", 0.4);
     static CHAR_DYING = new MyAudio("assets/audio/character/characterDying.mp3", 0.4);
@@ -63,6 +76,10 @@ export class AudioHub {
         AudioHub.BOTTLE_BREAK,
     ];
 
+    /**
+     * Plays a sound once.
+     * @param {MyAudio} sound - Sound to play.
+     */
     static playOne(sound) {
         sound.file.currentTime = 0;
         if (sound.file.readyState > 0 || sound.isLoaded) {
@@ -71,6 +88,9 @@ export class AudioHub {
         }
     }
 
+    /**
+     * Stops all game sounds.
+     */
     static stopAll() {
         AudioHub.allSounds.forEach((sound) => {
             sound.file.pause();
@@ -78,11 +98,19 @@ export class AudioHub {
         });
     }
 
+    /**
+     * Stops a sound.
+     * @param {MyAudio} sound - Sound to stop.
+     */
     static stopOne(sound) {
         sound.file.pause();
         sound.isPlaying = false;
     }
 
+    /**
+     * Starts a sound in a loop.
+     * @param {MyAudio} sound - Sound to play in a loop.
+     */
     static playLoop(sound) {
         if (!sound.isPlaying) {
             sound.file.loop = true;
@@ -91,6 +119,10 @@ export class AudioHub {
         }
     }
 
+    /**
+     * Stops a looping sound and resets its playback position.
+     * @param {MyAudio} sound - Sound to stop.
+     */
     static stopLoop(sound) {
         if (sound.isPlaying) {
             sound.file.pause();
@@ -99,6 +131,9 @@ export class AudioHub {
         }
     }
 
+    /**
+     * Toggles the mute state and saves it to local storage.
+     */
     static toggleMute() {
         AudioHub.muted = !AudioHub.muted;
         AudioHub.allSounds.forEach((sound) => {
@@ -107,6 +142,9 @@ export class AudioHub {
         localStorage.setItem("muted", AudioHub.muted);
     }
 
+    /**
+     * Loads the saved mute state from local storage.
+     */
     static loadMuteState() {
         const savedMute = localStorage.getItem("muted");
         if (savedMute === "true") {
