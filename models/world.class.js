@@ -18,9 +18,9 @@ export class World {
     ctx;
     keyboard;
     camera_x = 0;
-    healthBar = new StatusBar(ImageHub.stausbars.health_blue, 30, 0, 100, this.character.hpMax);
-    coinsBar = new StatusBar(ImageHub.stausbars.coins_blue, 30, 50, 0, this.character.coinsMax);
-    bottleBar = new StatusBar(ImageHub.stausbars.bottle_blue, 30, 100, 0, this.character.bottleMax);
+    healthBar = new StatusBar(ImageHub.stausbars.health_bar, 30, 10, 100, this.character.hpMax);
+    coinsBar = new StatusBar(ImageHub.stausbars.coins_bar, 30, 50, 0, this.character.coinsMax);
+    bottleBar = new StatusBar(ImageHub.stausbars.bottle_bar, 30, 90, 0, this.character.bottleMax);
     bossBar;
     throwableObjects = [];
     bossSpawned = false;
@@ -36,7 +36,7 @@ export class World {
     constructor(canvas, keyboard, showEndScreen) {
         this.level = createLevel1();
         this.endboss = this.level.enemies[0];
-        this.bossBar = new StatusBar(ImageHub.stausbars.boss_blue, 420, -50, 100, this.endboss.hpMax);
+        this.bossBar = new StatusBar(ImageHub.stausbars.boss_bar, 440, -50, 100, this.endboss.hpMax);
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;

@@ -140,37 +140,57 @@ export class ImageHub {
      * Images for the game's status bars.
      */
     static stausbars = {
-        health_blue: [
-            "assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png",
-            "assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png",
-            "assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/40.png",
-            "assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png",
-            "assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png",
-            "assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png"
+        health_bar: [
+            "assets/img/7_statusbars/health_bar/0.png",
+            "assets/img/7_statusbars/health_bar/10.png",
+            "assets/img/7_statusbars/health_bar/20.png",
+            "assets/img/7_statusbars/health_bar/30.png",
+            "assets/img/7_statusbars/health_bar/40.png",
+            "assets/img/7_statusbars/health_bar/50.png",
+            "assets/img/7_statusbars/health_bar/60.png",
+            "assets/img/7_statusbars/health_bar/70.png",
+            "assets/img/7_statusbars/health_bar/80.png",
+            "assets/img/7_statusbars/health_bar/90.png",
+            "assets/img/7_statusbars/health_bar/100.png"
         ],
-        coins_blue: [
-            "assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png",
-            "assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png",
-            "assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/40.png",
-            "assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/60.png",
-            "assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png",
-            "assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png"
+        coins_bar: [
+            "assets/img/7_statusbars/coin_bars/0.png",
+            "assets/img/7_statusbars/coin_bars/10.png",
+            "assets/img/7_statusbars/coin_bars/20.png",
+            "assets/img/7_statusbars/coin_bars/30.png",
+            "assets/img/7_statusbars/coin_bars/40.png",
+            "assets/img/7_statusbars/coin_bars/50.png",
+            "assets/img/7_statusbars/coin_bars/60.png",
+            "assets/img/7_statusbars/coin_bars/70.png",
+            "assets/img/7_statusbars/coin_bars/80.png",
+            "assets/img/7_statusbars/coin_bars/90.png",
+            "assets/img/7_statusbars/coin_bars/100.png"
         ],
-        bottle_blue: [
-            "assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/0.png",
-            "assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/20.png",
-            "assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/40.png",
-            "assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/60.png",
-            "assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/80.png",
-            "assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png"
+        bottle_bar: [
+            "assets/img/7_statusbars/bottle_bars/0.png",
+            "assets/img/7_statusbars/bottle_bars/10.png",
+            "assets/img/7_statusbars/bottle_bars/20.png",
+            "assets/img/7_statusbars/bottle_bars/30.png",
+            "assets/img/7_statusbars/bottle_bars/40.png",
+            "assets/img/7_statusbars/bottle_bars/50.png",
+            "assets/img/7_statusbars/bottle_bars/60.png",
+            "assets/img/7_statusbars/bottle_bars/70.png",
+            "assets/img/7_statusbars/bottle_bars/80.png",
+            "assets/img/7_statusbars/bottle_bars/90.png",
+            "assets/img/7_statusbars/bottle_bars/100.png"
         ],
-        boss_blue: [
-            "assets/img/7_statusbars/2_statusbar_endboss/blue/blue0.png",
-            "assets/img/7_statusbars/2_statusbar_endboss/blue/blue20.png",
-            "assets/img/7_statusbars/2_statusbar_endboss/blue/blue40.png",
-            "assets/img/7_statusbars/2_statusbar_endboss/blue/blue60.png",
-            "assets/img/7_statusbars/2_statusbar_endboss/blue/blue80.png",
-            "assets/img/7_statusbars/2_statusbar_endboss/blue/blue100.png",
+        boss_bar: [
+            "assets/img/7_statusbars/boss_bars/0.png",
+            "assets/img/7_statusbars/boss_bars/10.png",
+            "assets/img/7_statusbars/boss_bars/20.png",
+            "assets/img/7_statusbars/boss_bars/30.png",
+            "assets/img/7_statusbars/boss_bars/40.png",
+            "assets/img/7_statusbars/boss_bars/50.png",
+            "assets/img/7_statusbars/boss_bars/60.png",
+            "assets/img/7_statusbars/boss_bars/70.png",
+            "assets/img/7_statusbars/boss_bars/80.png",
+            "assets/img/7_statusbars/boss_bars/90.png",
+            "assets/img/7_statusbars/boss_bars/100.png"
         ]
     }
 
