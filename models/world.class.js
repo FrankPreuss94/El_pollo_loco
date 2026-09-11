@@ -143,7 +143,7 @@ export class World {
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead() && !this.character.isHurt()) {
-                this.character.hit(5);
+                this.character.hit(10);
                 this.healthBar.setPercentage(this.character.hp, this.character.hpMax);
             }
         });

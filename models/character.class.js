@@ -27,6 +27,7 @@ export class Character extends MovableObject {
     lastHitSound = 0;
     lastJumpSound = 0;
     dyingSoundPlayed = false;
+    isCharacter = true;
 
     /**
     * Creates a new player character.
@@ -47,42 +48,88 @@ export class Character extends MovableObject {
     /**
     * Handles character movement, animation and camera position.
     */
+
+    /**
+ * Handles character movement, animation and camera position.
+ */
     animate() {
+        this.startMovementInterval();
+        this.startAnimationInterval();
+    }
+
+    /**
+     * Starts the character movement interval.
+     */
+    startMovementInterval() {
         this.movementInterval = setInterval(() => {
-            if (this.world.keyboard.right && this.x < this.world.level.level_end_x && !this.isDead()) {
-                this.moveRight();
-                this.otherDirection = false;
-                this.resetIdleTimer();
-            }
-            if (this.world.keyboard.left && this.x > 0 && !this.isDead()) {
-                this.moveLeft();
-                this.otherDirection = true;
-                this.resetIdleTimer();
-            }
-            if ((this.world.keyboard.space && !this.isAboveGround() || this.world.keyboard.up && !this.isAboveGround()) && !this.isDead()) {
-                this.jump();
-                this.resetIdleTimer();
-            }
+            this.handleMovement();
             this.world.camera_x = -this.x + 100;
             this.idle();
         }, 1000 / 60);
+    }
 
+    /**
+     * Handles keyboard-based character movement.
+     */
+    handleMovement() {
+        this.handleHorizontalMovement();
+        this.handleJump();
+    }
+
+    /**
+     * Handles left and right character movement.
+     */
+    handleHorizontalMovement() {
+        if (this.world.keyboard.right && this.x < this.world.level.level_end_x && !this.isDead()) {
+            this.moveRight();
+            this.otherDirection = false;
+            this.resetIdleTimer();
+        }
+        if (this.world.keyboard.left && this.x > 0 && !this.isDead()) {
+            this.moveLeft();
+            this.otherDirection = true;
+            this.resetIdleTimer();
+        }
+    }
+
+    /**
+     * Handles the character jump input.
+     */
+    handleJump() {
+        if ((this.world.keyboard.space && !this.isAboveGround() ||
+            this.world.keyboard.up && !this.isAboveGround()) && !this.isDead()) {
+            this.jump();
+            this.resetIdleTimer();
+        }
+    }
+
+    /**
+     * Starts the character animation interval.
+     */
+    startAnimationInterval() {
         this.animationInterval = setInterval(() => {
             this.checkCharacterSound();
-            if (this.isDead()) {
-                this.playAnimation(ImageHub.charakter.dead);
-            } else if (this.isHurt()) {
-                this.playAnimation(ImageHub.charakter.hurt);
-            } else if (this.isAboveGround()) {
-                this.playAnimation(ImageHub.charakter.jump);
-            } else if (this.world.keyboard.right || this.world.keyboard.left) {
-                this.playAnimation(ImageHub.charakter.walk);
-            } else if (this.idle()) {
-                this.playAnimation(ImageHub.charakter.long_idle);
-            } else {
-                this.playAnimation(ImageHub.charakter.idle);
-            }
+            this.updateAnimation();
         }, 100);
+    }
+
+    /**
+    * Updates the character animation based on its current state.
+    */
+    updateAnimation() {
+        if (this.isDead()) {
+            this.playAnimation(ImageHub.charakter.dead);
+        } else if (this.isHurt()) {
+            this.playAnimation(ImageHub.charakter.hurt);
+        } else if (this.isAboveGround()) {
+            this.playAnimation(ImageHub.charakter.jump);
+        } else if (this.world.keyboard.right || this.world.keyboard.left) {
+            this.playAnimation(ImageHub.charakter.walk);
+        } else if (this.idle()) {
+            this.playAnimation(ImageHub.charakter.long_idle);
+        } else {
+            this.playAnimation(ImageHub.charakter.idle);
+        }
     }
 
     /**

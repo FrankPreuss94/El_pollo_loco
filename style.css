@@ -433,14 +433,15 @@ canvas {
 }
 
 @media (hover: none) {
-    .mobile_controls {
+    .mobile_controls_active {
         display: flex;
         position: absolute;
         left: 0;
         right: 0;
         bottom: clamp(8px, 3vw, 20px);
         justify-content: space-between;
-        padding-inline: 24px;
+        padding-inline: 30px;
+        z-index: 1;
 
         button {
             width: clamp(30px, 7vw, 55px);

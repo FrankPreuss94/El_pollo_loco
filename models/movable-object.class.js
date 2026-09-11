@@ -14,6 +14,7 @@ export class MovableObject extends DrawableObject {
     hpMax = 100;
     lastHit = 0;
     throwable = false;
+    isCharacter = false;
 
     /**
    * Applies gravity to the object.
@@ -23,6 +24,10 @@ export class MovableObject extends DrawableObject {
             if (!this.hasHit && (this.isAboveGround() || this.speedY > 0)) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+            }
+            if (!this.isAboveGround() && this.isCharacter) {
+                this.y = 140;
+                this.speedY = 0;
             }
         }, 1000 / 25);
     }
@@ -61,7 +66,7 @@ export class MovableObject extends DrawableObject {
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit;
         timePassed = timePassed / 1000;
-        return timePassed < 0.5;
+        return timePassed < 0.3;
     }
 
     /**

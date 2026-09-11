@@ -22,6 +22,7 @@ const rightBtnRef = document.getElementById("right-btn");
 const jumpBtnRef = document.getElementById("jump-btn");
 const throwBtnRef = document.getElementById("throw-btn");
 const canvasRef = document.getElementById("canvas");
+const mobileCtrlRef = document.getElementById("mobile-controls");
 
 let canvas;
 let world;
@@ -31,8 +32,12 @@ let keyboard = new Keyboard;
 AudioHub.loadMuteState();
 updateMuteIcons();
 
+/**
+ * Starts a new game and initializes the game world.
+ */
 function init() {
     canvasRef.style.display = "block";
+    mobileCtrlRef.classList.add("mobile_controls_active");
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard, showEndScreen);
     worlds.push(world);
@@ -41,6 +46,11 @@ function init() {
     AudioHub.playLoop(AudioHub.GAME_BACKGROUND);
 }
 
+/**
+ * Handles left and right movement keys.
+ * @param {KeyboardEvent} event - Keyboard event.
+ * @param {boolean} pressed - Current key state.
+ */
 function handleMovementKey(event, pressed) {
     if (event.keyCode == 37) {
         keyboard.left = pressed;
@@ -50,6 +60,11 @@ function handleMovementKey(event, pressed) {
     }
 }
 
+/**
+ * Handles jump and throw action keys.
+ * @param {KeyboardEvent} event - Keyboard event.
+ * @param {boolean} pressed - Current key state.
+ */
 function handleActionKey(event, pressed) {
     if (event.keyCode == 32) {
         keyboard.space = pressed;
@@ -62,6 +77,11 @@ function handleActionKey(event, pressed) {
     }
 }
 
+/**
+ * Handles all keyboard input.
+ * @param {KeyboardEvent} event - Keyboard event.
+ * @param {boolean} pressed - Current key state.
+ */
 function handleKey(event, pressed) {
     handleMovementKey(event, pressed);
     handleActionKey(event, pressed);
@@ -75,6 +95,9 @@ window.addEventListener("keyup", (event) => {
     handleKey(event, false);
 });
 
+/**
+ * Adds touch controls for moving left.
+ */
 function addLeftControl() {
     leftBtnRef.addEventListener("touchstart", (event) => {
         event.preventDefault();
@@ -89,6 +112,9 @@ function addLeftControl() {
     });
 }
 
+/**
+ * Adds touch controls for moving right.
+ */
 function addRightControl() {
     rightBtnRef.addEventListener("touchstart", (event) => {
         event.preventDefault();
@@ -103,6 +129,9 @@ function addRightControl() {
     });
 }
 
+/**
+ * Adds touch controls for jumping.
+ */
 function addJumpControl() {
     jumpBtnRef.addEventListener("touchstart", (event) => {
         event.preventDefault();
@@ -117,6 +146,9 @@ function addJumpControl() {
     });
 }
 
+/**
+ * Adds touch controls for throwing bottles.
+ */
 function addThrowControl() {
     throwBtnRef.addEventListener("touchstart", (event) => {
         event.preventDefault();
@@ -139,22 +171,38 @@ addJumpControl();
 
 addThrowControl();
 
+/**
+ * Opens the how-to dialog.
+ */
 function openHowTo() {
     howToRef.showModal();
 }
 
+/**
+ * Closes the how-to dialog.
+ */
 function closeHowTo() {
     howToRef.close();
 }
 
+/**
+ * Opens the imprint dialog.
+ */
 function openImprint() {
     imprintRef.showModal();
 }
 
+/**
+ * Closes the imprint dialog.
+ */
 function closeImprint() {
     imprintRef.close();
 }
 
+/**
+ * Stops the current game and displays the result screen.
+ * @param {string} result - Result class for the end screen.
+ */
 function showEndScreen(result) {
     world.stopGame();
     world.character.stopIntervals();
@@ -166,8 +214,12 @@ function showEndScreen(result) {
         AudioHub.playOne(AudioHub.GAME_LOST);
     }
     endScreenRef.classList.add(result);
+    mobileCtrlRef.classList.remove("mobile_controls_active");
 }
 
+/**
+ * Stops the current game and returns to the start screen.
+ */
 function backHome() {
     world.stopGame();
     AudioHub.stopAll();
@@ -176,11 +228,17 @@ function backHome() {
     startScreenRef.style.display = "flex";
 }
 
+/**
+ * Toggles the mute state and updates the mute icons.
+ */
 function toggleMute() {
     AudioHub.toggleMute();
     updateMuteIcons();
 }
 
+/**
+ * Updates the mute icons according to the current mute state.
+ */
 function updateMuteIcons() {
     const icon = AudioHub.muted ? "sound_off.png" : "sound_on.png";
     startMuteIconRef.src = `assets/img/menu/${icon}`;
